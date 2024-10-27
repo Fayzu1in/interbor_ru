@@ -26,7 +26,7 @@ div
 
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   data() {
     return {
@@ -36,205 +36,206 @@ export default {
       showHouses: false,
       districtByCities: [],
       streets: [],
-      inputCity: '',
-      inputDistrict: '',
-      inputStreets: '',
-      inputHouse: '',
+      inputCity: "",
+      inputDistrict: "",
+      inputStreets: "",
+      inputHouse: "",
       showFoundedProviders: false,
-    }
+    };
   },
   async fetch() {
     this.streets = await this.$axios.$get(
-      'https://internetbor.uz/api/v1/coverage-cities/'
-    )
+      "https://internetbor.ru/api/v1/coverage-cities/"
+    );
   },
   computed: {
     city() {
       const uniqueWords = this.streets.reduce((acc, cur) => {
         if (!acc[cur.city]) {
-          acc[cur.city] = cur
+          acc[cur.city] = cur;
         }
-        return acc
-      }, {})
+        return acc;
+      }, {});
 
-      const cities = Object.values(uniqueWords)
+      const cities = Object.values(uniqueWords);
 
       if (cities.some((c) => c.city === this.inputCity)) {
-        return cities
+        return cities;
       }
 
       return cities.filter((cur) => {
-        return cur.city.toLowerCase().includes(this.inputCity.toLowerCase())
-      })
+        return cur.city.toLowerCase().includes(this.inputCity.toLowerCase());
+      });
     },
 
     district() {
       const uniqueWords = this.districtByCities.reduce((acc, cur) => {
         if (!acc[cur.district]) {
-          acc[cur.district] = cur
+          acc[cur.district] = cur;
         }
-        return acc
-      }, {})
+        return acc;
+      }, {});
 
-      const districts = Object.values(uniqueWords)
+      const districts = Object.values(uniqueWords);
 
       if (districts.some((d) => d.district === this.inputDistrict)) {
-        return districts
+        return districts;
       }
 
       return Object.values(uniqueWords).filter((cur) => {
         return cur.district
           .toLowerCase()
-          .includes(this.inputDistrict.toLowerCase())
-      })
+          .includes(this.inputDistrict.toLowerCase());
+      });
     },
     street() {
       const uniqueWords = this.streetsByDistrict.reduce((acc, cur) => {
         if (!acc[cur.street]) {
-          acc[cur.street] = cur
+          acc[cur.street] = cur;
         }
-        return acc
-      }, {})
+        return acc;
+      }, {});
       return Object.values(uniqueWords).filter((cur) => {
         return cur.street
           .toLowerCase()
-          .includes(this.inputStreets.toLowerCase())
-      })
+          .includes(this.inputStreets.toLowerCase());
+      });
     },
     isSecondDisabled() {
-      return !this.inputCity
+      return !this.inputCity;
     },
     isThirdDisabled() {
-      return !this.inputDistrict
+      return !this.inputDistrict;
     },
     isForthDisabled() {
-      return !this.inputStreets
+      return !this.inputStreets;
     },
   },
   methods: {
     selectCity(word) {
-      this.inputDistrict = ''
-      this.inputStreets = ''
-      this.inputHouse = ''
-      this.districtByCities = this.streets.filter((obj) => obj.city === word)
+      this.inputDistrict = "";
+      this.inputStreets = "";
+      this.inputHouse = "";
+      this.districtByCities = this.streets.filter((obj) => obj.city === word);
       this.districtByCities = this.districtByCities.reduce((acc, obj) => {
         const foundIndex = acc.findIndex(
           (item) => item.district === obj.district
-        )
+        );
         if (foundIndex === -1) {
-          acc.push(obj)
+          acc.push(obj);
         } else {
-          acc[foundIndex] = obj
+          acc[foundIndex] = obj;
         }
-        return acc
-      }, [])
-      this.selectedCity = word
-      this.inputCity = word
-      this.showCities = false
+        return acc;
+      }, []);
+      this.selectedCity = word;
+      this.inputCity = word;
+      this.showCities = false;
     },
     selectDistrict(word) {
-      this.inputStreets = ''
-      this.inputHouse = ''
+      this.inputStreets = "";
+      this.inputHouse = "";
       this.streetsByDistrict = this.streets.filter(
         (obj) => obj.district === word
-      )
+      );
       this.streetsByDistrict = this.streetsByDistrict.reduce((acc, obj) => {
-        const foundIndex = acc.findIndex((item) => item.street === obj.street)
+        const foundIndex = acc.findIndex((item) => item.street === obj.street);
         if (foundIndex === -1) {
-          acc.push(obj)
+          acc.push(obj);
         } else {
-          acc[foundIndex] = obj
+          acc[foundIndex] = obj;
         }
-        return acc
-      }, [])
+        return acc;
+      }, []);
       // console.log(this.streetsByDistrict)
-      this.inputDistrict = word
-      this.SuggestionList = false
-      this.showDistrict = false
+      this.inputDistrict = word;
+      this.SuggestionList = false;
+      this.showDistrict = false;
     },
     selectStreet(word) {
-      this.inputStreets = word
-      this.showStreets = false
+      this.inputStreets = word;
+      this.showStreets = false;
       this.housesByStreets = axios
         .get(
-          `https://internetbor.uz/api/v1/coverage/?street=${word}&district=${this.inputDistrict}`
+          `https://internetbor.ru/api/v1/coverage/?street=${word}&district=${this.inputDistrict}`
         )
         .then((response) => {
-          this.housesByStreets = response.data[0].houses
+          this.housesByStreets = response.data[0].houses;
           // console.log(this.housesByStreets)
-        })
+        });
     },
     selectHouse(word) {
-      this.inputHouse = word
-      this.showHouses = false
+      this.inputHouse = word;
+      this.showHouses = false;
     },
 
     suggestion() {
-      this.showDistrict = !this.showDistrict
-      this.showCities = false
-      this.showStreets = false
-      this.showHouses = false
+      this.showDistrict = !this.showDistrict;
+      this.showCities = false;
+      this.showStreets = false;
+      this.showHouses = false;
     },
     formSubmit() {
-      this.loading = true
+      this.loading = true;
       axios
         .get(
-          `https://internetbor.uz/api/v1/coverage-check/?district=${this.inputDistrict}&street=${this.inputStreets}&house=${this.inputHouse}`
+          `https://internetbor.ru/api/v1/coverage-check/?district=${this.inputDistrict}&street=${this.inputStreets}&house=${this.inputHouse}`
         )
         .then((response) => {
-          this.response = response.data
-          console.dir(this.response)
+          this.response = response.data;
+          console.dir(this.response);
           // console.log('response', this.response)
-          this.inputCity = ''
-          this.inputDistrict = ''
-          this.inputStreets = ''
-          this.inputHouse = ''
+          this.inputCity = "";
+          this.inputDistrict = "";
+          this.inputStreets = "";
+          this.inputHouse = "";
           if (this.response.providers !== null) {
-            this.availableProviders = this.response.providers
-            this.showHouses = false
-            this.showCities = false
-            this.showDistrict = false
-            this.showStreets = false
-            let result = []
+            this.availableProviders = this.response.providers;
+            this.showHouses = false;
+            this.showCities = false;
+            this.showDistrict = false;
+            this.showStreets = false;
+            let result = [];
             for (const obj of this.availableProviders) {
-              result = result.concat(obj.provider_best)
-              this.bestOfAvailable = result
+              result = result.concat(obj.provider_best);
+              this.bestOfAvailable = result;
             }
-            this.showFoundedProviders = true
+            this.showFoundedProviders = true;
           }
 
           if (this.response.providers === null) {
-            this.notFounded = true
+            this.notFounded = true;
           }
         })
         .catch((error) => {
-          console.error('Error:', error)
+          console.error("Error:", error);
         })
         .finally(() => {
-          this.loading = false
-        })
+          this.loading = false;
+        });
       axios
         .get(
-          `https://internetbor.uz/api/v1/coverage/?street=${this.inputStreets}`
+          `https://internetbor.ru/api/v1/coverage/?street=${this.inputStreets}`
         )
         .then((data) => {
-          this.providersByStreet = data.data[0].providers
+          this.providersByStreet = data.data[0].providers;
         })
         .catch((error) => {
-          console.error('Error:', error)
+          console.error("Error:", error);
         })
         .finally(() => {
-          this.loading = false
-        })
+          this.loading = false;
+        });
     },
   },
-}
+};
 </script>
 <style lang="scss">
 input:focus {
   outline: none;
 }
 .addressForm {
+  font-family: "Montserrat", sans-serif;
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -252,16 +253,18 @@ input:focus {
     margin-bottom: 0;
   }
   &__field {
+    font-family: "Montserrat", sans-serif;
     padding: 30px 10px;
     border: none;
     text-align: center;
-
     padding-bottom: 25px;
     border-right: 1px solid #3f62a7;
     font-size: 1.125rem;
   }
   &__search {
+    font-family: "Montserrat", sans-serif;
     border: none;
+    font-weight: 600;
     background-color: #3f62a7;
     border-radius: 999px;
     font-size: 1.25rem;
@@ -272,6 +275,7 @@ input:focus {
   .inputWrapper {
     position: relative;
     .suggestionList {
+      z-index: 1000;
       list-style: none;
       background-color: #fff;
       position: absolute;
@@ -288,6 +292,9 @@ input:focus {
         color: #3f62a7;
         font-weight: 200;
         padding-bottom: 10px;
+        @media only screen and (max-width: 576px) {
+          padding-bottom: 20px;
+        }
 
         text-align: left;
         cursor: pointer;

@@ -84,7 +84,7 @@ section.request.container-fluid(@click='showModal = false' )
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 import {
   mdiClose,
   mdiClockOutline,
@@ -92,119 +92,119 @@ import {
   mdiTelevisionBox,
   mdiRouterWireless,
   mdiCableData,
-} from '@mdi/js'
+} from "@mdi/js";
 
 export default {
   data() {
     return {
       tariffID: this.$route.params.id,
       tariffInfo: [],
-      providerName: '',
-      tariff: '',
-      speed: '',
-      nightSpeed: '',
-      tech: '',
-      price: '',
-      limit: '',
-      locationText: '',
+      providerName: "",
+      tariff: "",
+      speed: "",
+      nightSpeed: "",
+      tech: "",
+      price: "",
+      limit: "",
+      locationText: "",
       showModal: false,
-      yData: '',
-      daily_speed_time: '08:00 - 00:00',
-      nightly_speed_time: '00:00 - 08:00',
+      yData: "",
+      daily_speed_time: "08:00 - 00:00",
+      nightly_speed_time: "00:00 - 08:00",
       mdiClockOutline,
       mdiInformation,
       mdiTelevisionBox,
       mdiRouterWireless,
       mdiCableData,
       router: false,
-      routerText: '',
+      routerText: "",
       tv: false,
-      tvText: '',
+      tvText: "",
       cable: false,
-      cableText: '',
-      actions: '',
-      infoText: '',
-      additionallyInfo: '',
-      image: '',
+      cableText: "",
+      actions: "",
+      infoText: "",
+      additionallyInfo: "",
+      image: "",
       location: [41.311151, 69.279737],
       mdiClose,
       post: {
-        name: '',
-        phone: '+998',
-        city: '',
-        district: '',
-        street: '',
-        house: '',
+        name: "",
+        phone: "+998",
+        city: "",
+        district: "",
+        street: "",
+        house: "",
         plan_id: this.$route.params.id,
       },
-    }
+    };
   },
   async fetch() {
     this.tariffInfo = await this.$axios.$get(
-      `https://internetbor.uz/api/v1/plans/${this.tariffID}`
-    )
+      `https://internetbor.ru/api/v1/plans/${this.tariffID}`
+    );
     // console.log(this.tariffInfo)
-    this.providerName = this.tariffInfo.provider_name
-    this.tariff = this.tariffInfo.title
-    this.speed = this.tariffInfo.speed
-    this.nightSpeed = this.tariffInfo.night
-    this.price = this.tariffInfo.price
-    this.limit = this.tariffInfo.limit
-    this.tech = this.tariffInfo.tech
-    this.daily_speed_time = this.tariffInfo.daily_speed_time
-    this.nightly_speed_time = this.tariffInfo.nightly_speed_time
-    this.actions = this.tariffInfo.info.replace(/&#32;/g, ' ')
-    this.router = this.tariffInfo.router
-    this.routerText = this.tariffInfo.router_text.replace(/&#32;/g, ' ')
-    this.tv = this.tariffInfo.tv
-    this.tvText = this.tariffInfo.tv_text.replace(/&#32;/g, ' ')
-    this.cable = this.tariffInfo.cabel
-    this.cableText = this.tariffInfo.cabel_text.replace(/&#32;/g, ' ')
-    this.additionallyInfo = this.tariffInfo.more_info.replace(/&#32;/g, ' ')
-    this.image = this.tariffInfo.provider_picture
+    this.providerName = this.tariffInfo.provider_name;
+    this.tariff = this.tariffInfo.title;
+    this.speed = this.tariffInfo.speed;
+    this.nightSpeed = this.tariffInfo.night;
+    this.price = this.tariffInfo.price;
+    this.limit = this.tariffInfo.limit;
+    this.tech = this.tariffInfo.tech;
+    this.daily_speed_time = this.tariffInfo.daily_speed_time;
+    this.nightly_speed_time = this.tariffInfo.nightly_speed_time;
+    this.actions = this.tariffInfo.info.replace(/&#32;/g, " ");
+    this.router = this.tariffInfo.router;
+    this.routerText = this.tariffInfo.router_text.replace(/&#32;/g, " ");
+    this.tv = this.tariffInfo.tv;
+    this.tvText = this.tariffInfo.tv_text.replace(/&#32;/g, " ");
+    this.cable = this.tariffInfo.cabel;
+    this.cableText = this.tariffInfo.cabel_text.replace(/&#32;/g, " ");
+    this.additionallyInfo = this.tariffInfo.more_info.replace(/&#32;/g, " ");
+    this.image = this.tariffInfo.provider_picture;
     // console.log(this.tariffInfo)
   },
 
   methods: {
     formSubmit() {
       axios
-        .post('https://internetbor.uz/api/v1/callbacks', this.post)
+        .post("https://internetbor.ru/api/v1/callbacks", this.post)
         .then((response) => {
           if (this.post.phone.length < 4) {
-            alert('Введите номер телефона')
+            alert("Введите номер телефона");
           }
-          this.post.name = ''
-          this.post.phone = '+998'
-          this.post.city = ''
-          this.post.district = ''
-          this.post.street = ''
-          this.post.house = ''
-          this.showModal = true
+          this.post.name = "";
+          this.post.phone = "+998";
+          this.post.city = "";
+          this.post.district = "";
+          this.post.street = "";
+          this.post.house = "";
+          this.showModal = true;
           // this.$router.push('/thankyou')
-          window.location.href = '/thankyou'
-        })
+          window.location.href = "/thankyou";
+        });
     },
     mapInit(e) {
       // console.log(e)
       window.ymaps.geolocation.get().then((res) => {
-        e.geoObjects.add(res.geoObjects)
-        this.location = res.geoObjects.position
-      })
+        e.geoObjects.add(res.geoObjects);
+        this.location = res.geoObjects.position;
+      });
     },
 
     onActionEnd(event) {
-      const coords = event.get('target').getCenter()
+      const coords = event.get("target").getCenter();
       window.ymaps.geocode(coords).then((result) => {
-        const firstGeoObject = result.geoObjects.get(0)
-        this.locationText = firstGeoObject.getAddressLine()
-        const [city, district, street] = this.locationText.split(', ')
-        this.post.city = city
-        this.post.district = district
-        this.post.street = street
-      })
+        const firstGeoObject = result.geoObjects.get(0);
+        this.locationText = firstGeoObject.getAddressLine();
+        const [city, district, street] = this.locationText.split(", ");
+        this.post.city = city;
+        this.post.district = district;
+        this.post.street = street;
+      });
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 * {
@@ -249,7 +249,7 @@ export default {
     }
     &__left {
       background-color: #fff;
-      outline: 7px solid #1bb8d1;
+      border: 7px solid #1bb8d1;
       border-radius: 15px;
       padding: 10px 15px;
       margin-right: 48px;
@@ -297,7 +297,7 @@ export default {
     }
     .information {
       background-color: #fff;
-      outline: 7px solid #1bb8d1;
+      border: 7px solid #1bb8d1;
       border-radius: 15px;
       padding: 10px 15px;
       margin-left: 48px;
@@ -729,7 +729,7 @@ export default {
     color: black;
     opacity: 0.5;
     &:before {
-      content: '';
+      content: "";
       background: linear-gradient(to right, transparent, #818078, transparent);
       position: absolute;
       left: 0;
@@ -738,7 +738,7 @@ export default {
       height: 1px;
     }
     &:after {
-      content: '';
+      content: "";
       position: relative;
       display: inline-block;
       padding: 0 0.5em;

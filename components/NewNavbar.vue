@@ -17,50 +17,74 @@ nav.Navbar(:class='{stuck}')
           :href='switchLocalePath("en")',
           :class='{ active: $i18n.locale === "en" }'
           ) EN
-          a.lang(
-          :href='switchLocalePath("uz")',
-          :class='{ active: $i18n.locale === "uz" }'
-          ) O'Z
+          //- a.lang(
+          //- :href='switchLocalePath("uz")',
+          //- :class='{ active: $i18n.locale === "uz" }'
+          //- ) O'Z
       .Navbar__mobile
         NuxtLink.list(:to='localePath("/")', style="padding-bottom: 12px;")
           img.MobileLogo(src='/new_logo.svg')
-        .burgerMenu
+        .burgerMenu(@click='mobileNav = toggleMobileNav')
           MaterialIcon(:icon='mdiMenu')
+      .mobileNavbar(v-if="mobileNav" key='dynamic' class='animated')  
+        button.mobileNavbar__btnClose(@click='mobileNav = false') 
+          MaterialIcon(:icon='mdiClose', color='white')
+        NuxtLink.mobileNavbar__link(:to='localePath("/")')
+          p(@click='mobileNav = false') {{ $t('homePage') }} 
+        NuxtLink.mobileNavbar__link(:to='localePath("/providers")')  
+          p(@click='mobileNav = false') {{ $t('providers') }}
+        a.mobileNavbar__link(href="https://t.me/InternetBorNews")  
+          p(@click='mobileNav = false') {{ $t('news') }}
+        NuxtLink.mobileNavbar__link(:to='localePath("/speedtest")')  
+          p(@click='mobileNav = false') {{ $t('speedtest') }}
+        a(href='https://telegram.me/InternetBor').mobileNavbar__link 
+          p {{ $t('support') }}
 </template>
 <script>
-import { mdiMenu } from '@mdi/js'
+import { mdiMenu, mdiClose } from "@mdi/js";
 export default {
   data() {
     return {
       stuck: false,
       mdiMenu,
-    }
+      mdiClose,
+      mobileNav: false,
+    };
   },
   mounted() {
     window.document.onscroll = () => {
-      const navBar = document.querySelector('.Navbar')
+      const navBar = document.querySelector(".Navbar");
       if (window.scrollY > navBar.offsetTop) {
-        this.stuck = true
+        this.stuck = true;
       } else {
-        this.stuck = false
+        this.stuck = false;
       }
-    }
+    };
   },
-}
+  methods: {
+    toggleMobileNav() {
+      this.mobileNav = !this.mobileNav;
+      this.$log("toggleMobileNav", this.mobileNav);
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .stuck {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  background: #0000002d;
 }
 .Navbar {
   width: 100%;
-  background-color: rgb(124, 213, 230);
+  backdrop-filter: blur(20px);
+
   position: fixed;
   z-index: 1000;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   transition: all 0.3s;
+  font-family: "Montserrat", sans-serif;
 
   &__container {
     padding-top: 45px;
@@ -135,5 +159,50 @@ export default {
     color: #3f62a7 !important;
     font-weight: bold !important;
   }
+}
+.mobileNavbar {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  background: #1bb8d1;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 18px 20px 20px 20px;
+  padding-bottom: 50px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  &__link {
+    color: #fff;
+
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    p {
+      padding-right: 5px;
+      // line-height: 0.5;
+      margin: 0;
+    }
+    .icon {
+      height: 25px;
+    }
+  }
+  &__btnClose {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: none;
+    background: none;
+    width: auto;
+  }
+  // a.nuxt-link-exact-active {
+  //   border-bottom: 1px solid #fff;
+  // }
 }
 </style>

@@ -13,13 +13,13 @@ export default {
   data() {
     return {
       news: [],
-    }
+    };
   },
   async fetch() {
-    this.news = await this.$axios.$get('https://internetbor.uz/api/v1/news')
+    this.news = await this.$axios.$get("https://internetbor.ru/api/v1/news");
     // console.log(this.news)
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .card {

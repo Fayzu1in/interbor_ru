@@ -3,9 +3,9 @@
   .ChooseCard
     .ChooseCard__top
       .ChooseCard__top-left
-        .connect Подключение
-        .title  Интернет для любых целей
-        .subtitle Возможности без границ для работы, учебы и развлечений!
+        .connect {{ $t('connect') }}
+        .title  {{ $t('internetForAnyPurpose') }}
+        .subtitle {{ $t('limitlessOpportunities') }}
       .ChooseCard__top-right
         img(src='/connect.png')
     .ChooseCard__bottom
@@ -14,19 +14,7 @@
           img(:src='item.image')
           span.text {{ item.dwelling }}
         .tariffCard__middle {{ item.priceFrom }}
-        button.tariffCard__button Подобрать тариф
-//- section.choose
-//-   .chooseCard(v-for='i in tariff', @click.stop.prevent='$emit("showCallBackModal")')
-//-     .chooseCard__img
-//-       img(:src='i.image')
-//-     .chooseCard__text 
-//-       p.top {{ $t('internet') }}
-//-       p.chooseCard__title {{ i.dwelling }}
-//-     p.chooseCard__cost 
-//-       span {{ $t('from') }} 
-//-       span.price(style="font-family: 'LilitaOne-Regular';") {{ i.priceFrom }} 
-//-       span {{ $t('sum') }}
-//-     p.chooseCard__subtitle {{ $t('selectOptimal') }}
+        button.tariffCard__button {{ $t('choosePlan') }}
 </template>
 <script>
 export default {
@@ -34,24 +22,24 @@ export default {
     return {
       tariff: [
         {
-          dwelling: this.$t('flat'),
-          priceFrom: 'From 90.000 sum',
-          image: '/home.png',
+          dwelling: this.$t("flat"),
+          priceFrom: "",
+          image: "/home.png",
         },
         {
-          dwelling: this.$t('home'),
-          priceFrom: 'From 90.000 sum',
-          image: '/flat.png',
+          dwelling: this.$t("home"),
+          priceFrom: "",
+          image: "/flat.png",
         },
         {
-          dwelling: this.$t('office'),
-          priceFrom: 'From 120.000 sum',
-          image: '/office.png',
+          dwelling: this.$t("office"),
+          priceFrom: "",
+          image: "/office.png",
         },
       ],
-    }
+    };
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .ChooseCard {
@@ -76,9 +64,7 @@ export default {
         padding: 10px 18px;
         background-color: #fff;
         border-radius: 5px;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        font-family: "Montserrat", sans-serif;
       }
       .title {
         font-size: 45px;
@@ -86,10 +72,12 @@ export default {
         font-weight: bold;
         line-height: 60px;
         padding-bottom: 14px;
+        font-family: "Raleway", sans-serif;
       }
       .subtitle {
         font-size: 20px;
         font-weight: 200;
+        font-family: "Montserrat", sans-serif;
       }
     }
     &-right {
@@ -132,9 +120,7 @@ export default {
       align-items: center;
       justify-content: center;
       width: fit-content;
-      box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
-        rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+      font-family: "Montserrat", sans-serif;
       @media only screen and (max-width: 576px) {
         margin-bottom: 10px;
         margin-top: 10px;
@@ -144,6 +130,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        font-family: "Raleway", sans-serif;
 
         .text {
           font-size: 30px;
@@ -169,6 +156,7 @@ export default {
         border-radius: 999px;
         border: none;
         cursor: pointer;
+        font-family: "Montserrat", sans-serif;
       }
     }
   }

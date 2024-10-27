@@ -3,9 +3,9 @@
   .TopProviders
     .TopProviders__top
       .TopProviders__top-left
-        .connect провайдеры
-        .title  Топ провайдеров
-        .subtitle Лучшие интернет-провайдеры Узбекистана: обзор надежных и выгодных предложений
+        .connect {{ $t('providers') }}
+        .title  {{ $t('topProviders') }}
+        .subtitle {{ $t('bestProvidersUzbekistan') }}
       .TopProviders__top-right
         img(src='/router.png')
     .TopProviders__bottom
@@ -18,14 +18,14 @@ export default {
   data() {
     return {
       topProviders: [],
-    }
+    };
   },
   async fetch() {
     this.topProviders = await this.$axios.$get(
-      'https://internetbor.uz/api/v1/top-providers'
-    )
+      "https://internetbor.ru/api/v1/top-providers"
+    );
   },
-}
+};
 </script>
 <style lang="scss">
 .TopProviders {
@@ -51,9 +51,7 @@ export default {
         padding: 10px 18px;
         background-color: #fff;
         border-radius: 5px;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        font-family: "Montserrat", sans-serif;
       }
       .title {
         font-size: 2.75rem;
@@ -61,6 +59,7 @@ export default {
         font-weight: bold;
         line-height: 60px;
         padding-bottom: 14px;
+        font-family: "Raleway", sans-serif;
         @media only screen and (max-width: 576px) {
           font-size: 2rem;
           line-height: 35px;
@@ -69,6 +68,7 @@ export default {
       .subtitle {
         font-size: 20px;
         font-weight: 200;
+        font-family: "Montserrat", sans-serif;
       }
     }
     &-right {
@@ -87,20 +87,21 @@ export default {
     display: flex;
     justify-content: space-between;
     @media only screen and (max-width: 576px) {
-      flex-direction: column;
-      align-items: center;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    &::-webkit-scrollbar {
+      display: none;
     }
     .providerCard {
       border-radius: 13px;
       max-width: 146px;
       width: 100%;
-      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
       @media only screen and (max-width: 576px) {
         width: 200px;
         height: 200px;
         margin-bottom: 20px;
+        margin-right: 70px;
       }
 
       .topProviders {
@@ -140,9 +141,6 @@ export default {
             // box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 
             transition: transform 0.3s;
-            &:hover {
-              transform: scale(1.1);
-            }
             @media only screen and (max-width: 431px) {
               margin-left: 0;
               padding: 20px;

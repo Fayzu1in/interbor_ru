@@ -10,7 +10,7 @@
             NuxtLink.availableProvider(:to='localePath(`/provider/${available.provider_id}/`)') 
               img.providerLogo(:src="`${available.provider_picture}`")
         .subtitle(v-if='bestOfAvailable && bestOfAvailable.length') {{ $t('favorableTariff') }}
-        VueGlide(:options='options' v-if="bestOfAvailable?.length")
+        VueGlide.slider(:options='options' v-if="bestOfAvailable?.length")
           VueGlideSlide(v-for="best in bestOfAvailable" :key="best.plan_id", v-if='best.provider_id !== 6')
             BetterofferCard(:router='best.router' :hot='best.is_hot' :image='best.provider_picture' :name='best.plan_name' :price='best.plan_price' :speed='best.plan_speed' :nSpeed='best.night' :tech='best.tech' :message='best.plan_id')
           template(slot='control')
@@ -18,6 +18,9 @@
               MaterialIcon(:icon='mdiChevronLeft' )
             button.glide__arrow.glide__arrow--right(data-glide-dir='>') 
               MaterialIcon(:icon='mdiChevronRight')
+        .bestOfAvailableMobile 
+          div(v-for="best in bestOfAvailable" :key="best.plan_id", v-if='best.provider_id !== 6')
+            BetterofferCard(:router='best.router' :hot='best.is_hot' :image='best.provider_picture' :name='best.plan_name' :price='best.plan_price' :speed='best.plan_speed' :nSpeed='best.night' :tech='best.tech' :message='best.plan_id', )
 </template>
 <script>
 import { mdiChevronRight, mdiChevronLeft } from '@mdi/js'
@@ -87,13 +90,22 @@ export default {
   }
   .congrats {
     padding: 1.625rem;
+    @media only screen and (max-width: 576px) {
+      padding: 5px;
+    }
     .title {
       font-size: 2rem;
       font-weight: 600;
+      @media only screen and (max-width: 576px) {
+        font-size: 1.5rem;
+      }
     }
     .subtitle {
       font-size: 0.875rem;
       padding-top: 20px;
+      @media only screen and (max-width: 576px) {
+        padding-top: 7px;
+      }
     }
     .availableProviders {
       width: 100%;
@@ -112,6 +124,10 @@ export default {
         margin-left: 10px;
         margin-right: 10px;
         cursor: pointer;
+        @media only screen and (max-width: 576px) {
+          margin-right: 5;
+          margin-left: 5px;
+        }
 
         .providerLogo {
           object-fit: contain;
@@ -120,7 +136,26 @@ export default {
           width: 125px;
           border-radius: 30px;
           object-fit: contain;
+          @media only screen and (max-width: 576px) {
+            height: 85px;
+            width: 100px;
+          }
         }
+      }
+    }
+    .slider {
+      @media only screen and (max-width: 576px) {
+        display: none;
+      }
+    }
+    .bestOfAvailableMobile {
+      display: none;
+      overflow: auto;
+      margin-left: 15px;
+      justify-content: flex-start;
+      width: auto;
+      @media only screen and (max-width: 576px) {
+        display: flex;
       }
     }
   }

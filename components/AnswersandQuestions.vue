@@ -12,7 +12,7 @@ section.container-fluid
             p {{item.answer}}
 </template>
 <script>
-import { mdiChevronDown, mdiChevronUp } from '@mdi/js'
+import { mdiChevronDown, mdiChevronUp } from "@mdi/js";
 export default {
   data() {
     return {
@@ -20,17 +20,17 @@ export default {
       mdiChevronUp,
       show: false,
       faq: null,
-    }
+    };
   },
   async fetch() {
-    this.faq = await this.$axios.$get('https://internetbor.uz/api/v1/q&a/')
+    this.faq = await this.$axios.$get("https://internetbor.ru/api/v1/q&a/");
   },
   methods: {
     toggleDropdown(itemId) {
-      this.show = this.show === itemId ? null : itemId
+      this.show = this.show === itemId ? null : itemId;
     },
   },
-}
+};
 </script>
 <style lang="scss">
 .faqSection {

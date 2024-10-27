@@ -3,9 +3,9 @@
   .questionsSection
     .questionsSection__top
       .questionsSection__top-left
-        .connect вопросы и ответы
-        .title  Ответы на часто задаваемые вопросы
-        .subtitle Все, что вам нужно знать: быстрые ответы на популярные вопросы
+        .connect(style="text-transform: lowercase;") {{ $t('questionsAndAnswers') }}
+        .title  {{ $t('faq') }}
+        .subtitle {{ $t('faqInfo') }}
       .questionsSection__top-right
         img(src='/internet-devices.png')
     .questionsSection__bottom
@@ -25,6 +25,7 @@ export default {}
     padding-bottom: 50px;
     @media only screen and (max-width: 576px) {
       flex-direction: column;
+      padding-top: 0;
     }
 
     &-left {
@@ -36,9 +37,7 @@ export default {}
         padding: 10px 18px;
         background-color: #fff;
         border-radius: 5px;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        font-family: 'Montserrat', sans-serif;
       }
       .title {
         font-size: 45px;
@@ -46,8 +45,10 @@ export default {}
         font-weight: bold;
         line-height: 60px;
         padding-bottom: 14px;
+        font-family: 'Raleway', sans-serif;
       }
       .subtitle {
+        font-family: 'Montserrat', sans-serif;
         font-size: 20px;
         font-weight: 200;
       }
@@ -55,6 +56,9 @@ export default {}
     &-right {
       display: flex;
       justify-content: flex-end;
+      @media only screen and (max-width: 576px) {
+        display: none;
+      }
       img {
         height: 274px;
         width: 421px;

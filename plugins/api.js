@@ -2,14 +2,14 @@
 
 export default ({ $axios, i18n }, inject) => {
   const $api = $axios.create({
-    baseURL: 'https://internetbor.uz/api/v1/',
+    baseURL: "https://internetbor.ru/api/v1/",
     headers: {
       common: {
-        Accept: 'application/json',
-        'Accept-Language': i18n.locale,
+        Accept: "application/json",
+        "Accept-Language": i18n.locale,
       },
     },
-  })
+  });
 
   const apiMethods = {
     // api client instance for custom requests
@@ -28,8 +28,8 @@ export default ({ $axios, i18n }, inject) => {
       }),
     clickCatcher: (title) => $api.$post(`/click`, { title }),
     getCoverageCities: () =>
-      $api.get('https://internetbor.uz/api/v1/coverage-cities/'),
-  }
+      $api.get("https://internetbor.ru/api/v1/coverage-cities/"),
+  };
 
-  inject('api', apiMethods)
-}
+  inject("api", apiMethods);
+};
