@@ -17,6 +17,8 @@ main
       .overFooter__card
         .overFooter__title 24/7
         .overFooter__subtitle {{ $t('support') }}
+  .container-fluid
+    NuxtLink.personalData(to='/personaldata') Политика обработки персональных данных
   transition(name='fade')
     CallBack(v-if='callBack' @close='showCallBack')
   transition(name='fade')
@@ -31,64 +33,64 @@ export default {
       NeedHelpModal: false,
       baseValue: 15000, // Starting value
       incrementPerDay: 7, // Daily increment
-      startDate: new Date('2024-10-25'),
-    }
+      startDate: new Date("2024-10-25"),
+    };
   },
   computed: {
     currentCount() {
-      const today = new Date()
+      const today = new Date();
       // Calculate days difference between today and the start date
       const daysElapsed = Math.floor(
         (today - this.startDate) / (1000 * 60 * 60 * 24)
-      )
+      );
       // Calculate the new value
-      return this.baseValue + this.incrementPerDay * daysElapsed
+      return this.baseValue + this.incrementPerDay * daysElapsed;
     },
   },
   mounted() {
-    let clicked = false
+    let clicked = false;
     const timer = setInterval(() => {
       if (!clicked) {
-        this.NeedHelpModal = true
+        this.NeedHelpModal = true;
       }
-    }, 15000)
-    window.addEventListener('click', () => {
-      clicked = true
-      clearInterval(timer)
-    })
+    }, 15000);
+    window.addEventListener("click", () => {
+      clicked = true;
+      clearInterval(timer);
+    });
   },
   methods: {
     showCallBackModal() {
-      this.callBack = true
+      this.callBack = true;
     },
     showCallBack() {
-      this.callBack = false
+      this.callBack = false;
     },
     showNeedHelpModal() {
-      this.NeedHelpModal = false
+      this.NeedHelpModal = false;
     },
 
     async redirectToAllplay() {
       try {
-        await this.$api.clickCatcher('allplay')
+        await this.$api.clickCatcher("allplay");
       } catch (error) {
-        console.error('Error occured', error)
+        console.error("Error occured", error);
       } finally {
-        window.open('https://allplay.uz/profile/subscription', '_blank')
+        window.open("https://allplay.uz/profile/subscription", "_blank");
       }
     },
     async callCatcher() {
       try {
-        await this.$api.clickCatcher('phone call')
+        await this.$api.clickCatcher("phone call");
       } catch (error) {
-        console.error('Error occured', error)
+        console.error("Error occured", error);
       } finally {
-        const phoneNumber = '+998781137071'
-        window.location.href = `tel:${phoneNumber}`
+        const phoneNumber = "+998781137071";
+        window.location.href = `tel:${phoneNumber}`;
       }
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .overFooter {
@@ -364,6 +366,10 @@ export default {
   @media only screen and (max-width: 431px) {
     margin-top: 20px;
   }
+}
+.personalData {
+  text-align: center;
+  color: #fff;
 }
 .fade-enter-active,
 .fade-leave-active {
