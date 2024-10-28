@@ -23,7 +23,7 @@
             BetterofferCard(:router='best.router' :hot='best.is_hot' :image='best.provider_picture' :name='best.plan_name' :price='best.plan_price' :speed='best.plan_speed' :nSpeed='best.night' :tech='best.tech' :message='best.plan_id', )
 </template>
 <script>
-import { mdiChevronRight, mdiChevronLeft } from '@mdi/js'
+import { mdiChevronRight, mdiChevronLeft } from "@mdi/js";
 export default {
   props: {
     availableProviders: {
@@ -45,14 +45,14 @@ export default {
         bound: true,
         breakpoints: {},
       },
-    }
+    };
   },
   methods: {
     hide() {
-      this.$emit('hide')
+      this.$emit("hide");
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .foundedProviders {
@@ -112,34 +112,32 @@ export default {
       display: flex;
       padding-top: 15px;
       justify-content: center;
+      overflow: auto;
+      gap: 10px;
       .card {
         width: auto;
       }
       .availableProvider {
+        max-width: 125px;
+        height: 110px;
         border-radius: 30px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
+        background-color: white;
+        padding: 10px;
+        display: inline-block;
+        overflow: hidden;
         margin-left: 10px;
         margin-right: 10px;
-        cursor: pointer;
         @media only screen and (max-width: 576px) {
           margin-right: 5;
           margin-left: 5px;
+          max-width: 90px;
+          height: 79px;
         }
 
         .providerLogo {
+          width: 100%;
+          height: 100%;
           object-fit: contain;
-          height: 93px;
-          background: #fff;
-          width: 125px;
-          border-radius: 30px;
-          object-fit: contain;
-          @media only screen and (max-width: 576px) {
-            height: 85px;
-            width: 100px;
-          }
         }
       }
     }

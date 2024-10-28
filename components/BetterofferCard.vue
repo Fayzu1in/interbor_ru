@@ -36,7 +36,7 @@ import {
   mdiCashMultiple,
   mdiFire,
   mdiRouterWireless,
-} from '@mdi/js'
+} from "@mdi/js";
 export default {
   props: {
     hot: {
@@ -88,9 +88,9 @@ export default {
       mdiFire,
       mdiRouterWireless,
       offers: null,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -109,8 +109,8 @@ export default {
   margin-bottom: 15px;
   position: relative;
   margin-right: 50px;
-  margin-top: 50px;
-  font-family: 'Montserrat', sans-serif;
+
+  font-family: "Montserrat", sans-serif;
   @media only screen and (max-width: 431px) {
     margin-top: 20px;
     max-width: 300px;
@@ -120,7 +120,7 @@ export default {
     position: absolute;
     align-items: center;
     border-radius: 5px;
-    top: -25px;
+    top: -15px;
     right: 6px;
     color: #fff;
     width: auto;
