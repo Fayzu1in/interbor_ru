@@ -7,12 +7,12 @@
         .title  {{ $t('tariffsOfTheMonth') }}
         .subtitle {{ $t('tariffsAtAffordablePrices') }}
       .TopProviders__top-right
-        img(src='/rocket.png')
+        img(src='/rocket.gif')
     .TopProviders__bottom
       betterOffers
 </template>
 <script>
-export default {}
+export default {};
 </script>
 <style lang="scss" scoped>
 .TopProviders {
@@ -35,7 +35,7 @@ export default {}
     &-left {
       color: #fff;
       .connect {
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         width: fit-content;
         font-size: 11px;
         color: #2e363e;
@@ -49,14 +49,14 @@ export default {}
         font-weight: bold;
         line-height: 60px;
         padding-bottom: 14px;
-        font-family: 'Raleway', sans-serif;
+        font-family: "Raleway", sans-serif;
         @media only screen and (max-width: 576px) {
           font-size: 2rem;
           line-height: 35px;
         }
       }
       .subtitle {
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         font-size: 20px;
         font-weight: 200;
       }

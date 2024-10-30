@@ -9,7 +9,7 @@
     .addressSection__top
       .addressSection__top-left {{ $t('chooseProvider') }}
       .addressSection__top-right
-        img(src='/signal.png')
+        img(src='/signal.gif')
     .addressSection__middle
       //- AddressForm
       NewaddressForm(:coverageCities='coverageCities', :currentCity='currentCity')
@@ -26,33 +26,33 @@
           .workTime__bottom {{ $t('everyDayFrom') }}
 </template>
 <script>
-import { mdiMapMarkerOutline } from '@mdi/js'
+import { mdiMapMarkerOutline } from "@mdi/js";
 export default {
   data() {
     return {
       mdiMapMarkerOutline,
-      currentCity: 'Ташкент',
+      currentCity: "Ташкент",
       showCities: false,
       coverageCities: [],
-    }
+    };
   },
   async fetch() {
     await this.$api.getCoverageCities().then((res) => {
-      this.coverageCities = res.data
-      console.log('coverageCities', this.coverageCities)
-    })
+      this.coverageCities = res.data;
+      console.log("coverageCities", this.coverageCities);
+    });
   },
   computed: {
     citiesList() {
-      return [...new Set(this.coverageCities.map((cityObj) => cityObj.city))]
+      return [...new Set(this.coverageCities.map((cityObj) => cityObj.city))];
     },
   },
   methods: {
     selectedCity(city) {
-      this.currentCity = city
+      this.currentCity = city;
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .addressSection {
@@ -111,7 +111,7 @@ export default {
     }
 
     &-left {
-      font-family: 'Raleway', sans-serif;
+      font-family: "Raleway", sans-serif;
       font-size: 2.625rem;
       color: #fff;
       font-weight: bold;
@@ -136,7 +136,7 @@ export default {
     }
   }
   &__bottom {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     display: flex;
     padding-top: 183px;
     color: #fff;

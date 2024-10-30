@@ -7,7 +7,7 @@
         .title  {{ $t('bestService') }}
         .subtitle {{ $t('quickConvenientSearch') }}
       .AboutCompany__top-right
-        img(src='/wiki.png')
+        img(src='/wiki.gif')
     .AboutCompany__bottom
       .AboutCompany__bottom-top
         .aboutTextCard
@@ -32,7 +32,7 @@
       
 </template>
 <script>
-export default {}
+export default {};
 </script>
 <style lang="scss">
 .AboutCompany {
@@ -63,7 +63,7 @@ export default {}
         padding: 10px 18px;
         background-color: #fff;
         border-radius: 5px;
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
       }
       .title {
         font-size: 45px;
@@ -71,10 +71,10 @@ export default {}
         font-weight: bold;
         line-height: 60px;
         padding-bottom: 14px;
-        font-family: 'Raleway', sans-serif;
+        font-family: "Raleway", sans-serif;
       }
       .subtitle {
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         font-size: 20px;
         font-weight: 200;
       }

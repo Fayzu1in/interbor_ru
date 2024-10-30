@@ -7,12 +7,12 @@
         .title  {{ $t('faq') }}
         .subtitle {{ $t('faqInfo') }}
       .questionsSection__top-right
-        img(src='/internet-devices.png')
+        img(src='/internet-devices.gif')
     .questionsSection__bottom
       AnswersandQuestions
 </template>
 <script>
-export default {}
+export default {};
 </script>
 <style lang="scss">
 .questionsSection {
@@ -37,7 +37,7 @@ export default {}
         padding: 10px 18px;
         background-color: #fff;
         border-radius: 5px;
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
       }
       .title {
         font-size: 45px;
@@ -45,10 +45,10 @@ export default {}
         font-weight: bold;
         line-height: 60px;
         padding-bottom: 14px;
-        font-family: 'Raleway', sans-serif;
+        font-family: "Raleway", sans-serif;
       }
       .subtitle {
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         font-size: 20px;
         font-weight: 200;
       }
