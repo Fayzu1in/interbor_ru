@@ -3,24 +3,24 @@ div
   form.addressForm(action="" method="post", @submit.prevent="formSubmit")
     .addressForm__district
       label.inputWrapper(for='city')
-        input.addressForm__field(type='text' :placeholder=`$t('city')` required v-model="inputCity" @input="showCities = inputCity.length > 0" @click="showCities = !showCities, showDistrict = false, showStreets = false" )
+        input.addressForm__field(type='text' :placeholder=`$t('city')` required v-model="inputCity" @input="showCities = inputCity.length > 0" @click="toggleShowCities" )
         ul.suggestionList(v-if="showCities" )
-          li.suggestionItem(v-for="city in city" @click="selectCity(city.city)") {{ city.city }}
+          li.suggestionItem(v-for="city in cities" @click="selectCity(city.name)") {{ city.name }}
     .addressForm__district
       label.inputWrapper(for='district')
-        input.addressForm__field(type='text' :placeholder=`$t('district')` required v-model="inputDistrict" @input="showDistrict = inputDistrict.length > 0" @click='suggestion' :disabled="isSecondDisabled" )
+        input.addressForm__field(type='text' :placeholder=`$t('district')` required v-model="inputDistrict" @input="showDistrict = inputDistrict.length > 0" @click='toggleShowDistrict' :disabled="isSecondDisabled" )
         ul.suggestionList(v-if="showDistrict" )
-          li.suggestionItem(v-for="district in district"  @click="selectDistrict(district.district)") {{ district.district }}
+          li.suggestionItem(v-for="district in districts"  @click="selectDistrict(district.name)") {{ district.name }}
     .addressForm__street
       label.inputWrapper(for='street')
-        input.addressForm__field(type='text' :placeholder=`$t('street')` required v-model="inputStreets" @input="showStreets = inputStreets.length > 0" @click="showStreets = !showStreets, showCities = false, showHouses = false, showDistrict = false" :disabled="isThirdDisabled" )
+        input.addressForm__field(type='text' :placeholder=`$t('street')` required v-model="inputStreet" @input="showStreets = inputStreet.length > 0" @click="toggleShowStreets" :disabled="isThirdDisabled" )
         ul.suggestionList(v-if="showStreets")
-          li.suggestionItem(v-for="str in street"  @click="selectStreet(str.street)") {{ str.street }}
+          li.suggestionItem(v-for="str in streets"  @click="selectStreet(str.name)") {{ str.name }}
     .addressForm__house 
       label.inputWrapper(for='house')
-        input.addressForm__field(type='text' :placeholder=`$t('house')` required v-model="inputHouse" @click='showHouses = !showHouses, showStreets = false, showDistrict=false, showCities= false' :disabled="isForthDisabled", style="border-right: none; border-bottom: unset")
+        input.addressForm__field(type='text' :placeholder=`$t('house')` required v-model="inputHouse" @click='toggleShowHouses' :disabled="isForthDisabled", style="border-right: none; border-bottom: unset")
         ul.suggestionList(v-if="showHouses")
-          li.suggestionItem(v-for="house in this.housesByStreets" @click="selectHouse(house)" ) {{ house }}
+          li.suggestionItem(v-for="house in houses" @click="selectHouse(house)" ) {{ house }}
     button.addressForm__search 
       | {{ $t('search') }}
       MaterialIcon(v-if="isLoading", :icon="mdiLoading", size="16px", color="#fff", class="loading-icon")
@@ -37,75 +37,22 @@ export default {
       showCities: false,
       showStreets: false,
       showHouses: false,
-      districtByCities: [],
+      houses: [],
       streets: [],
       inputCity: "",
       inputDistrict: "",
-      inputStreets: "",
+      inputStreet: "",
       inputHouse: "",
       showFoundedProviders: false,
       mdiLoading,
       isLoading: false,
+      districts: [],
     };
   },
   async fetch() {
-    this.streets = await this.$axios.$get(
-      "https://internetbor.ru/api/v1/coverage-cities/"
-    );
+    this.cities = await this.$axios.$get("https://internetbor.ru/api/cities/");
   },
   computed: {
-    city() {
-      const uniqueWords = this.streets.reduce((acc, cur) => {
-        if (!acc[cur.city]) {
-          acc[cur.city] = cur;
-        }
-        return acc;
-      }, {});
-
-      const cities = Object.values(uniqueWords);
-
-      if (cities.some((c) => c.city === this.inputCity)) {
-        return cities;
-      }
-
-      return cities.filter((cur) => {
-        return cur.city.toLowerCase().includes(this.inputCity.toLowerCase());
-      });
-    },
-
-    district() {
-      const uniqueWords = this.districtByCities.reduce((acc, cur) => {
-        if (!acc[cur.district]) {
-          acc[cur.district] = cur;
-        }
-        return acc;
-      }, {});
-
-      const districts = Object.values(uniqueWords);
-
-      if (districts.some((d) => d.district === this.inputDistrict)) {
-        return districts;
-      }
-
-      return Object.values(uniqueWords).filter((cur) => {
-        return cur.district
-          .toLowerCase()
-          .includes(this.inputDistrict.toLowerCase());
-      });
-    },
-    street() {
-      const uniqueWords = this.streetsByDistrict.reduce((acc, cur) => {
-        if (!acc[cur.street]) {
-          acc[cur.street] = cur;
-        }
-        return acc;
-      }, {});
-      return Object.values(uniqueWords).filter((cur) => {
-        return cur.street
-          .toLowerCase()
-          .includes(this.inputStreets.toLowerCase());
-      });
-    },
     isSecondDisabled() {
       return !this.inputCity;
     },
@@ -113,60 +60,68 @@ export default {
       return !this.inputDistrict;
     },
     isForthDisabled() {
-      return !this.inputStreets;
+      return !this.inputStreet;
     },
   },
   methods: {
+    toggleShowCities() {
+      this.showCities = !this.showCities;
+      this.showDistrict = false;
+      this.showStreets = false;
+    },
     selectCity(word) {
-      this.inputDistrict = "";
-      this.inputStreets = "";
-      this.inputHouse = "";
-      this.districtByCities = this.streets.filter((obj) => obj.city === word);
-      this.districtByCities = this.districtByCities.reduce((acc, obj) => {
-        const foundIndex = acc.findIndex(
-          (item) => item.district === obj.district
-        );
-        if (foundIndex === -1) {
-          acc.push(obj);
-        } else {
-          acc[foundIndex] = obj;
-        }
-        return acc;
-      }, []);
-      this.selectedCity = word;
       this.inputCity = word;
+      this.inputDistrict = "";
+      this.inputStreet = "";
+      this.inputHouse = "";
       this.showCities = false;
     },
+    toggleShowDistrict() {
+      this.showDistrict = !this.showDistrict;
+      this.showCities = false;
+      this.showStreets = false;
+      this.showHouses = false;
+      axios
+        .get(`https://internetbor.ru/api/districts/?city=${this.inputCity}`)
+        .then((response) => {
+          this.districts = response.data;
+        });
+    },
     selectDistrict(word) {
-      this.inputStreets = "";
+      this.inputStreet = "";
       this.inputHouse = "";
-      this.streetsByDistrict = this.streets.filter(
-        (obj) => obj.district === word
-      );
-      this.streetsByDistrict = this.streetsByDistrict.reduce((acc, obj) => {
-        const foundIndex = acc.findIndex((item) => item.street === obj.street);
-        if (foundIndex === -1) {
-          acc.push(obj);
-        } else {
-          acc[foundIndex] = obj;
-        }
-        return acc;
-      }, []);
-      // console.log(this.streetsByDistrict)
       this.inputDistrict = word;
       this.SuggestionList = false;
       this.showDistrict = false;
     },
-    selectStreet(word) {
-      this.inputStreets = word;
-      this.showStreets = false;
-      this.housesByStreets = axios
+    toggleShowStreets() {
+      this.showStreets = !this.showStreets;
+      this.showCities = false;
+      this.showHouses = false;
+      this.showDistrict = false;
+      axios
         .get(
-          `https://internetbor.ru/api/v1/coverage/?street=${word}&district=${this.inputDistrict}`
+          `https://internetbor.ru/api/streets/?city=${this.inputCity}&district=${this.inputDistrict}`
         )
         .then((response) => {
-          this.housesByStreets = response.data[0].houses;
-          // console.log(this.housesByStreets)
+          this.streets = response.data;
+        });
+    },
+    selectStreet(word) {
+      this.inputStreet = word;
+      this.showStreets = false;
+    },
+    toggleShowHouses() {
+      this.showHouses = !this.showHouses;
+      this.showStreets = false;
+      this.showDistrict = false;
+      this.showCities = false;
+      axios
+        .get(
+          `https://internetbor.ru/api/houses/?city=${this.inputCity}&district=${this.inputDistrict}&street=${this.inputStreet}`
+        )
+        .then((response) => {
+          this.houses = response.data;
         });
     },
     selectHouse(word) {
@@ -174,28 +129,22 @@ export default {
       this.showHouses = false;
     },
 
-    suggestion() {
-      this.showDistrict = !this.showDistrict;
-      this.showCities = false;
-      this.showStreets = false;
-      this.showHouses = false;
-    },
     formSubmit() {
       this.isLoading = true;
       axios
         .get(
-          `https://internetbor.ru/api/v1/coverage-check/?district=${this.inputDistrict}&street=${this.inputStreets}&house=${this.inputHouse}`
+          `https://internetbor.ru/api/providers/?city=${this.inputCity}&district=${this.inputDistrict}&street=${this.inputStreet}&house=${this.inputHouse}`
         )
         .then((response) => {
           this.response = response.data;
-          console.dir(this.response);
-          // console.log('response', this.response)
           this.inputCity = "";
           this.inputDistrict = "";
-          this.inputStreets = "";
+          this.inputStreet = "";
           this.inputHouse = "";
           if (this.response.providers !== null) {
             this.availableProviders = this.response.providers;
+            console.log("availableProviders", this.availableProviders);
+
             this.showHouses = false;
             this.showCities = false;
             this.showDistrict = false;
@@ -217,19 +166,6 @@ export default {
         })
         .finally(() => {
           this.isLoading = false;
-        });
-      axios
-        .get(
-          `https://internetbor.ru/api/v1/coverage/?street=${this.inputStreets}`
-        )
-        .then((data) => {
-          this.providersByStreet = data.data[0].providers;
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        })
-        .finally(() => {
-          this.loading = false;
         });
     },
   },

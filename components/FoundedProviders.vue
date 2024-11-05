@@ -6,12 +6,12 @@
         .title {{ $t('congratulations') }} 
         .subtitle {{ $t('availableProviders') }}
         .availableProviders
-          div.card(v-for="available in availableProviders", v-if='available.provider_id !== 6')
+          div.card(v-for="available in availableProviders",)
             NuxtLink.availableProvider(:to='localePath(`/provider/${available.provider_id}/`)') 
               img.providerLogo(:src="`${available.provider_picture}`")
         .subtitle(v-if='bestOfAvailable && bestOfAvailable.length') {{ $t('favorableTariff') }}
         VueGlide.slider(:options='options' v-if="bestOfAvailable?.length")
-          VueGlideSlide(v-for="best in bestOfAvailable" :key="best.plan_id", v-if='best.provider_id !== 6')
+          VueGlideSlide(v-for="best in bestOfAvailable" :key="best.plan_id", )
             BetterofferCard(:router='best.router' :hot='best.is_hot' :image='best.provider_picture' :name='best.plan_name' :price='best.plan_price' :speed='best.plan_speed' :nSpeed='best.night' :tech='best.tech' :message='best.plan_id')
           template(slot='control')
             button.glide__arrow.glide__arrow--left(data-glide-dir='<') 
@@ -19,7 +19,7 @@
             button.glide__arrow.glide__arrow--right(data-glide-dir='>') 
               MaterialIcon(:icon='mdiChevronRight')
         .bestOfAvailableMobile 
-          div(v-for="best in bestOfAvailable" :key="best.plan_id", v-if='best.provider_id !== 6')
+          div(v-for="best in bestOfAvailable" :key="best.plan_id", )
             BetterofferCard(:router='best.router' :hot='best.is_hot' :image='best.provider_picture' :name='best.plan_name' :price='best.plan_price' :speed='best.plan_speed' :nSpeed='best.night' :tech='best.tech' :message='best.plan_id', )
 </template>
 <script>
