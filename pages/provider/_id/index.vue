@@ -1,13 +1,11 @@
 <template lang="pug">
 section.container-fluid.tariffWrapperr
   .tariff
-    //- .providersText {{ $t('providers') }}
     .tariff__title {{ providerName }}
-    .tariff__cards
     VueGlide.desktopSlide(v-if="data && data.length" :options='options')
       VueGlideSlide(v-for='tariff in data' :key='tariff.id' )
         NuxtLink.tariffLink(:to='localePath(`/request/${tariff.id}` )')
-          BetterofferCard.card(:router='tariff.router' :hot='tariff.is_hot' :image='tariff.provider_picture' :name='tariff.title' :nSpeed='tariff.night' :tech='tariff.tech' :speed='tariff.speed' :price='tariff.price' :message='tariff.id')
+          BetterofferCard.card(:router='tariff.router' :hot='tariff.is_hot' :image='tariff.provider_picture' :name='tariff.title' :tech='tariff.tech' :price='tariff.price' :message='tariff.id')
     .mobileSlide(v-if="data && data.length" :options='options')
       div(v-for='tariff in data' :key='tariff.id' )
         NuxtLink.tariffLink(:to='localePath(`/request/${tariff.id}` )')

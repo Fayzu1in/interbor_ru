@@ -85,7 +85,7 @@ export default {
       } catch (error) {
         console.error("Error occured", error);
       } finally {
-        const phoneNumber = "+998781137071";
+        const phoneNumber = "88007002478";
         window.location.href = `tel:${phoneNumber}`;
       }
     },

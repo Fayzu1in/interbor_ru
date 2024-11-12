@@ -10,13 +10,13 @@ section.tariff
       p(:speed='speed') {{ this.speed }}
       MaterialIcon(:icon='mdiSpeedometer' )
     .tariff__card-cost
-      p(:cost='cost') {{ cost }}  сум/мес
+      p(:cost='cost') {{ cost }}  руб/мес
       MaterialIcon(:icon='mdiCashMultiple' color='green')
     NuxtLink.tariff__card-button(:to='localePath(`/request/${plan}`)',) {{ $t('connect') }} 
   hr.hrLine
 </template>
 <script>
-import { mdiSpeedometer, mdiCashMultiple, mdiAllInclusive } from '@mdi/js'
+import { mdiSpeedometer, mdiCashMultiple, mdiAllInclusive } from "@mdi/js";
 export default {
   props: {
     plan: {
@@ -45,9 +45,9 @@ export default {
       mdiSpeedometer,
       mdiCashMultiple,
       mdiAllInclusive,
-    }
+    };
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .tariff {
@@ -139,7 +139,7 @@ export default {
   color: black;
   opacity: 0.5;
   &:before {
-    content: '';
+    content: "";
     background: linear-gradient(to right, transparent, #818078, transparent);
     position: absolute;
     left: 0;
@@ -148,7 +148,7 @@ export default {
     height: 1px;
   }
   &:after {
-    content: '';
+    content: "";
     position: relative;
     display: inline-block;
     color: black;

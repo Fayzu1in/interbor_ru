@@ -19,7 +19,7 @@ section.Providers
             BetterofferCard(:router='link.router' :hot='link.is_hot' :image='link.provider_picture' :name='link.title' :tech='link.tech' :nSpeed='link.night' :speed='link.speed' :price='link.price' :message='link.id')
 </template>
 <script>
-import { mdiChevronRight, mdiChevronLeft } from '@mdi/js'
+import { mdiChevronRight, mdiChevronLeft } from "@mdi/js";
 export default {
   data() {
     return {
@@ -39,39 +39,39 @@ export default {
           },
         },
       },
-    }
+    };
   },
   async fetch() {
     try {
-      const res = await this.$api.getPlans()
-      this.plans = res
+      const res = await this.$api.getPlans();
+      this.plans = res;
     } catch (error) {
-      console.error('Failed to fetch plans:', error)
+      console.error("Failed to fetch plans:", error);
     }
   },
   computed: {
     groups() {
       return this.plans.reduce((acc, cur) => {
-        const provider = acc.find((c) => c.provider_id === cur.provider_id)
+        const provider = acc.find((c) => c.provider_id === cur.provider_id);
 
         if (provider) {
-          provider.plans.push(cur)
+          provider.plans.push(cur);
         } else {
           acc.push({
             provider_id: cur.provider_id,
             provider_name: cur.provider_name,
             plans: [cur],
-          })
+          });
         }
 
-        return acc
-      }, [])
+        return acc;
+      }, []);
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
-:deep(div[data-glide-el='controls']) {
+:deep(div[data-glide-el="controls"]) {
   position: absolute;
   left: 0;
   right: 0;
@@ -185,9 +185,4 @@ export default {
     display: none;
   }
 }
-/* .card {
-  width: 300px;
-  height: 300px;
-  background-color: #fff;
-} */
 </style>

@@ -22,7 +22,7 @@
         a(href='tel:9989781136135')
           img.phoneImage(src='/phone.png')
         .workTime
-          .workTime__top +998 (78) 113-61-35
+          .workTime__top 8 800 700-24-78
           .workTime__bottom {{ $t('everyDayFrom') }}
 </template>
 <script>

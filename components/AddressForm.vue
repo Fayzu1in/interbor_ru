@@ -35,7 +35,7 @@ section.addressFormSection
       .notFounded__middle 
         p.notFounded__middle-title {{ $t('leavePhone') }}
         form.notFoundedForm(action="" method="post", @submit.prevent="notFoundedForm")
-          input.notFoundedForm__inputPhone( v-maska data-maska='+998 (##) ### ## ##' name='phone' v-model="phoneNumberOfNotFounded.phone" required)
+          input.notFoundedForm__inputPhone( v-maska data-maska='+7 (###) ### ## ##' name='phone' v-model="phoneNumberOfNotFounded.phone" required)
           button.notFoundedForm__sendBtn {{$t('send')}}
       .notFounded__bottom(v-if="providersByStreet?.length")
         p.notFounded__bottom-title {{ $t('availableAtStreet') }}
@@ -114,7 +114,6 @@ export default {
         phone: "+998",
       },
       currentIndex: 0,
-      // phoneNumber: '+998',
       modalBckg: false,
       options: {
         perView: 1,
@@ -379,7 +378,7 @@ export default {
       } catch (error) {
         console.error("Error occured", error);
       } finally {
-        const phoneNumber = "+998781137071";
+        const phoneNumber = "88007002478";
         window.location.href = `tel:${phoneNumber}`;
       }
     },

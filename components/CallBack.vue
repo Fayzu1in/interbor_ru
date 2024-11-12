@@ -4,62 +4,62 @@ ModalDialog(@close='$emit("close")')
     .callBackModal 
       .callBackModal__top {{$t('applicationSpecialist')}}
       .callBackModal__middle
-        p {{ $t('forConsultation') }}
-        .phoneCallFromModal(@click='callCatcher') +998 78 113 70 71
-        p {{ $t('fillOutCallBack') }}
+        //- p {{ $t('forConsultation') }}
+        .phoneCallFromModal(@click='callCatcher') 8 800 700-24-78
+        //- p {{ $t('fillOutCallBack') }}
         form(method="post", @submit.prevent="postCallBackForm").callBackForm 
           input(:placeholder=`$t('yourName')`, required  id="phone" name="phone" v-model='name')
-          input(:placeholder=`$t('yourPhone')`, v-maska data-maska='+998 (##) ### ## ##', pattern=".{19,}" required  id="phone" name="phone" v-model='phone')
+          input(:placeholder=`$t('yourPhone')`, v-maska data-maska='+7 (###) ### ## ##', required  id="phone" name="phone" v-model='phone')
           input(:placeholder=`$t('whenToCall')`, required  id="preferrable_time" name="preferrable_time" v-model='preferrableTime')
           ActionButton(:loading = `loading`, type='submit' :content='this.$t("orderConsultation")')
       .callBackModal__bottom 
         p {{ $t('providingConsultation') }}
         p {{ $t('workDaily') }}
-        p {{ $t('contactTommorow') }}
+        //- p {{ $t('contactTommorow') }}
 </template>
 <script>
-import { mdiClose } from '@mdi/js'
+import { mdiClose } from "@mdi/js";
 export default {
   data() {
     return {
       mdiClose,
-      name: '',
-      phone: '',
-      preferrableTime: '',
+      name: "",
+      phone: "",
+      preferrableTime: "",
       loading: false,
-    }
+    };
   },
   methods: {
     postCallBackForm() {
-      this.loading = true
+      this.loading = true;
       this.$api
         .postCallBack(this.name, this.phone, this.preferrableTime)
         .then((res) => {
-          this.name = ''
-          this.phone = ''
-          this.preferrableTime = ''
-          this.loading = false
-          console.log(res)
-          this.$emit('close')
+          this.name = "";
+          this.phone = "";
+          this.preferrableTime = "";
+          this.loading = false;
+          console.log(res);
+          this.$emit("close");
         })
         .catch((error) => {
           // Handle errors here if needed
-          console.error('Error:', error)
-          this.loading = false // Set loading to false on error as well
-        })
+          console.error("Error:", error);
+          this.loading = false; // Set loading to false on error as well
+        });
     },
     async callCatcher() {
       try {
-        await this.$api.clickCatcher('phone call')
+        await this.$api.clickCatcher("phone call");
       } catch (error) {
-        console.error('Error occured', error)
+        console.error("Error occured", error);
       } finally {
-        const phoneNumber = '+998781137071'
-        window.location.href = `tel:${phoneNumber}`
+        const phoneNumber = "88007002478";
+        window.location.href = `tel:${phoneNumber}`;
       }
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .callBackSection {

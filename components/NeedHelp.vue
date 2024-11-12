@@ -6,41 +6,41 @@ ModalDialog(@close='$emit("close")')
       .NeedHelp__middle
         p {{ $t('contactSupportAndGetHelp') }}
         .helpLink.phone(@click='callCatcher') 
-          span 78 113 70 71 
+          span 8 800 700-24-78
         span.helpLink(@click='telegram')
           span {{ $t('telegram') }}
       .NeedHelp__bottom
         p {{ $t('providingConsultation') }}
         p {{ $t('workDaily') }}
-        p {{ $t('contactTommorow') }}
+        //- p {{ $t('contactTommorow') }}
 </template>
 <script>
 export default {
   data() {
-    return {}
+    return {};
   },
   methods: {
     async telegram() {
       try {
-        await this.$api.clickCatcher('telegram')
+        await this.$api.clickCatcher("telegram");
       } catch (error) {
-        console.error('Error occured', error)
+        console.error("Error occured", error);
       } finally {
-        window.open('https://telegram.me/InternetBor', '_blank')
+        window.open("https://telegram.me/InternetBor", "_blank");
       }
     },
     async callCatcher() {
       try {
-        await this.$api.clickCatcher('phone call')
+        await this.$api.clickCatcher("phone call");
       } catch (error) {
-        console.error('Error occured', error)
+        console.error("Error occured", error);
       } finally {
-        const phoneNumber = '+998781137071'
-        window.location.href = `tel:${phoneNumber}`
+        const phoneNumber = "88007002478";
+        window.location.href = `tel:${phoneNumber}`;
       }
     },
   },
-}
+};
 </script>
 <style lang="scss">
 .NeedHelpSection {

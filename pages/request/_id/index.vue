@@ -9,15 +9,17 @@ section.request.container-fluid(@click='showModal = false' )
         .formManual__title {{ $t('congratsTariff') }}
         .formManual__subtitle
           p {{ $t('fillOut') }}
+          //- pattern=".{19,}"pattern=".{19,}"
       form.request__form(action="" method="post", @submit.prevent="formSubmit")
         input(:placeholder=`$t('name')` required type="text" id="name" name="name" v-model='post.name' )
-        input(:placeholder=`$t('phoneNumber')`, v-maska data-maska='+998 (##) ### ## ##', pattern=".{19,}"  required  id="phone" name="phone" v-model='post.phone' )
+        input(:placeholder=`$t('phoneNumber')`, v-maska data-maska='+7 (###) ### ## ##', required  id="phone" name="phone" v-model='post.phone' )
         input(:placeholder=`$t('city')` required type="text" id="city" name="city" v-model='post.city' )
         input(:placeholder=`$t('district')` required type="text" id="district" name="district" v-model='post.district' )
         input(:placeholder=`$t('street')`  type="text" id="street" name="street" v-model='post.street' )
         input(:placeholder=`$t('house')` required type="text" id="house" name="house" v-model='post.house' )
         input(type="hidden" name="plan_id"  id='tariff' :value='this.$route.params.id' )
         button.request__form-button(type="submit" value="submit") {{ $t('send') }}
+        p.accept Нажимая на кнопку "Оставить заявку", выдаёте Согласие на обработку персональных данных и соглашаетесь с Политикой обработки персональных данных
     .information
       .tariff
         .tariff__title
@@ -31,51 +33,37 @@ section.request.container-fluid(@click='showModal = false' )
       .tariffInfo
         .leftSide
           .type 
-            .type__title {{ $t('type') }}:
+            .type__title Технология:
             .type__subtitle {{ tech }}
-          .dailySpeed 
-            .dailySpeed__title 
-              MaterialIcon(:icon='mdiClockOutline' size='25px' color='black')
-              p {{ daily_speed_time }}
-            .dailySpeed__subtitle 
-              //- img(src='')
-              p {{ speed }}
-
         .rightSide
           .limit 
             .limit__title {{ $t('limit') }}:
-            .limit__subtitle {{ limit }}
-          .nightlySpeed 
-            .nightlySpeed__title 
-              MaterialIcon(:icon='mdiClockOutline' size='25px' color='black')
-              p {{ nightly_speed_time }}
-            .nightlySpeed__subtitle 
-              //- img(src='')
-              p {{ nightSpeed }}
+            .limit__subtitle {{ speed }} Mb/s
       .informationList(v-if='routerText?.length')
         .informationList__left
-          img(src='/icon_tarriff.png')
+          MaterialIcon(:icon='mdiRouterWireless', color='#1bb8d1')
         .informationList__right
           p {{ routerText }}
       .informationList(v-if='tvText?.length')
         .informationList__left
-          img(src='/icon_tarriff.png')
+          MaterialIcon(:icon='mdiTelevisionBox', color='#1bb8d1')
         .informationList__right
           p {{ tvText }}
-      .informationList(v-if='cableText?.length')
+      .informationList(v-if='tariffInfo.bonus')
         .informationList__left
-          img(src='/icon_tarriff.png')
+          MaterialIcon(:icon='mdiGiftOutline', color='#1bb8d1')
         .informationList__right
-          p {{ cableText }}
+          p {{ tariffInfo.bonus_text }}
+      .informationList(v-if='tariffInfo.celular')
+        .informationList__left
+          MaterialIcon(:icon='mdiCellphoneBasic', color='#1bb8d1')
+        .informationList__right
+          p {{ tariffInfo.celular_text }}
       .informationList(v-if='actions?.length')
         .informationList__left
-          img(src='/icon_tarriff.png')
+          MaterialIcon(:icon='mdiInformationOutline', color='#1bb8d1')
         .informationList__right
           p {{ actions }}
-
-  
-    
-    
   .bottom
     yandex-map(:coords="location", :zoom='18', :scroll-zoom='false'  class="map", @actionend='onActionEnd' @map-was-initialized='mapInit')
 
@@ -92,6 +80,9 @@ import {
   mdiTelevisionBox,
   mdiRouterWireless,
   mdiCableData,
+  mdiInformationOutline,
+  mdiCellphoneBasic,
+  mdiGiftOutline,
 } from "@mdi/js";
 
 export default {
@@ -116,6 +107,9 @@ export default {
       mdiTelevisionBox,
       mdiRouterWireless,
       mdiCableData,
+      mdiInformationOutline,
+      mdiCellphoneBasic,
+      mdiGiftOutline,
       router: false,
       routerText: "",
       tv: false,
@@ -130,7 +124,7 @@ export default {
       mdiClose,
       post: {
         name: "",
-        phone: "+998",
+        phone: "+7",
         city: "",
         district: "",
         street: "",
@@ -143,7 +137,6 @@ export default {
     this.tariffInfo = await this.$axios.$get(
       `https://internetbor.ru/api/v1/plans/${this.tariffID}`
     );
-    // console.log(this.tariffInfo)
     this.providerName = this.tariffInfo.provider_name;
     this.tariff = this.tariffInfo.title;
     this.speed = this.tariffInfo.speed;
@@ -162,7 +155,6 @@ export default {
     this.cableText = this.tariffInfo.cabel_text.replace(/&#32;/g, " ");
     this.additionallyInfo = this.tariffInfo.more_info.replace(/&#32;/g, " ");
     this.image = this.tariffInfo.provider_picture;
-    // console.log(this.tariffInfo)
   },
 
   methods: {
@@ -174,18 +166,16 @@ export default {
             alert("Введите номер телефона");
           }
           this.post.name = "";
-          this.post.phone = "+998";
+          this.post.phone = "+7";
           this.post.city = "";
           this.post.district = "";
           this.post.street = "";
           this.post.house = "";
           this.showModal = true;
-          // this.$router.push('/thankyou')
           window.location.href = "/thankyou";
         });
     },
     mapInit(e) {
-      // console.log(e)
       window.ymaps.geolocation.get().then((res) => {
         e.geoObjects.add(res.geoObjects);
         this.location = res.geoObjects.position;
@@ -237,11 +227,11 @@ export default {
     padding-top: 70px;
   }
   .top {
-    padding-top: 50px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    gap: 30px;
     @media only screen and (max-width: 431px) {
       flex-direction: column-reverse;
       align-items: center;
@@ -250,9 +240,8 @@ export default {
     &__left {
       background-color: #fff;
       border: 7px solid #1bb8d1;
-      border-radius: 15px;
+      border-radius: 30px;
       padding: 10px 15px;
-      margin-right: 48px;
       @media only screen and (max-width: 431px) {
         margin-right: 0;
       }
@@ -265,6 +254,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+
         @media only screen and (max-width: 431px) {
           width: 100%;
         }
@@ -285,6 +275,7 @@ export default {
           line-height: 25px;
           max-width: 268px;
           width: 100%;
+          line-height: 19px;
           &-number {
             font-size: 28px;
             padding-right: 15px;
@@ -298,12 +289,13 @@ export default {
     .information {
       background-color: #fff;
       border: 7px solid #1bb8d1;
-      border-radius: 15px;
+      border-radius: 30px;
       padding: 10px 15px;
-      margin-left: 48px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      max-width: 420px;
+      width: 100%;
 
       @media only screen and (max-width: 431px) {
         margin-left: 0;
@@ -354,6 +346,10 @@ export default {
           }
           .price {
             padding: 10px 60px;
+          }
+          .name {
+            color: #fff;
+            background: #1bb8d1;
           }
         }
         &__right {
@@ -439,7 +435,6 @@ export default {
             }
             &__subtitle {
               text-align: center;
-              text-transform: uppercase;
               font-size: 18px;
             }
           }
@@ -463,7 +458,7 @@ export default {
         }
       }
       .informationList {
-        max-width: 350px;
+        max-width: 430px;
         width: 100%;
         color: #000;
         padding: 10px 20px;
@@ -484,112 +479,6 @@ export default {
         }
       }
     }
-    // .iformation {
-    //   // backdrop-filter: blur(10px);
-    //   // background-color: #00000096;
-    //   max-width: 350px;
-    //   width: 100%;
-    //   display: flex;
-    //   justify-content: center;
-    //   align-items: center;
-    //   // padding: 0 20px;
-    //   flex-direction: column;
-    //   border-radius: 5px;
-    //   margin-left: 15px;
-    //   @media only screen and (max-width: 431px) {
-    //     // padding: 10px 20px;
-    //     margin-bottom: 15px;
-    //     margin-right: 0;
-    //     margin-left: 0;
-    //   }
-    //   .iformationList {
-    //     display: flex;
-    //     max-width: 700px;
-    //     align-items: center;
-    //     width: 100%;
-    //     justify-content: space-between;
-    //     // border-bottom: 1px solid rgba(128, 128, 128, 0.417);
-    //     // font-size: 18px;
-    //     // padding: 7px 0;
-    //     border: 1px solid rgba(128, 128, 128, 0.417);
-    //     background: #00000096;
-    //     border-radius: 5px;
-    //     font-size: 20px;
-    //     color: #fff;
-
-    //     margin-bottom: 5px;
-    //     padding: 7px 20px;
-    //     @media only screen and (max-width: 431px) {
-    //       font-size: 18px;
-    //       border-bottom: none;
-    //       padding: 10px 15px;
-    //     }
-    //     .title {
-    //       color: rgb(193, 191, 191);
-    //       margin: 0;
-    //     }
-    //     .subtitle {
-    //       margin: 0;
-    //     }
-    //     .speedTime {
-    //       display: flex;
-    //       p {
-    //         margin-right: 10px;
-    //       }
-    //     }
-    //   }
-    //   .actions {
-    //     display: flex;
-    //     flex-direction: column;
-    //     .actionsTitle {
-    //       color: #eba026;
-    //       font-weight: bold;
-    //       margin: 0;
-    //     }
-    //     .actionsSubtitle {
-    //       margin: 0;
-    //       padding-top: 5px;
-    //       white-space: pre-wrap;
-    //     }
-    //   }
-    //   .info {
-    //     &__logo {
-    //       position: relative;
-    //       cursor: context-menu;
-
-    //       &-image {
-    //         &:hover + .infoText {
-    //           display: block;
-    //         }
-    //       }
-    //       .infoText {
-    //         display: none;
-    //         position: absolute;
-    //         bottom: 45px;
-    //         background: rgba(246, 246, 246, 0.606);
-    //         backdrop-filter: blur(10px);
-    //         border-radius: 15px;
-    //         color: #000;
-    //         width: 250px;
-    //         margin: 0;
-    //         padding: 10px;
-    //         z-index: 1;
-    //         white-space: pre-wrap;
-    //       }
-    //       .mobileinfoText {
-    //         @media only screen and (max-width: 431px) {
-    //           right: 0;
-    //         }
-    //       }
-    //       .mobileinfoText2 {
-    //         @media only screen and (max-width: 431px) {
-    //           right: -100px;
-    //           // left: 0;
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   }
   .bottom {
     display: flex;
@@ -615,21 +504,10 @@ export default {
       font-size: 22px;
     }
     input {
-      // border: 1px solid rgba(128, 128, 128, 0.417);
-      // background: #00000096;
-      // border-radius: 5px;
-      // color: #fff;
-
-      // font-size: 20px;
-      // margin-bottom: 5px;
-      // padding: 7px 20px;
-      // height: 50px;
-      // padding: 8px 20px;
       background-color: #f0f8ff;
       border: none;
       backdrop-filter: blur(10px);
       color: #000;
-      // font-size: 22px;
       border-radius: 10px;
       max-width: 350px;
       width: 100%;
@@ -650,16 +528,6 @@ export default {
       padding-bottom: 10px;
     }
     &-button {
-      // border: none;
-      // font-size: 22px;
-      // cursor: pointer;
-      // text-decoration: none;
-      // color: #fff;
-      // background: linear-gradient(to right, #d1b88c 0%, #ec9f1b 100%);
-      // padding: 5px 20px;
-      // border-radius: 5px;
-      // padding: 0 20px;
-      // height: 50px;
       background: #1bb8d1;
       color: #fff;
       border: none;
@@ -667,16 +535,19 @@ export default {
       max-width: 350px;
       width: 100%;
       margin-top: 17px;
-      // margin-left: 20px;
-      // font-size: 22px;
       cursor: pointer;
       transition: all 0.3s;
       font-size: 20px;
-      // margin-bottom: 10px;
       padding: 17px 75px;
       @media only screen and (max-width: 431px) {
         font-size: 18px;
       }
+    }
+    .accept {
+      color: #2e363e;
+      text-align: center;
+      font-size: 0.875rem;
+      padding-top: 10px;
     }
   }
 }

@@ -8,21 +8,21 @@
 export default {
   head() {
     return {
-      title: this.$t('browserTitle'),
-    }
+      title: this.$t("browserTitle"),
+    };
   },
   methods: {
     async redirectToTelegram() {
       try {
-        await this.$api.clickCatcher('telegram')
+        await this.$api.clickCatcher("telegram");
       } catch (error) {
-        this.$error('Error occured', error)
+        this.$error("Error occured", error);
       } finally {
-        window.open('https://telegram.me/InternetBor', '_blank')
+        window.open("https://telegram.me/InternetBor", "_blank");
       }
     },
   },
-}
+};
 </script>
 <style lang="scss">
 * {
@@ -35,39 +35,31 @@ a {
   text-decoration: none;
 }
 html {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 
   color: #fff;
   ::-webkit-scrollbar {
     width: 7px;
-    border-radius: 15px;
+    height: 10px;
+    border-radius: 30px;
   }
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #0b2249;
-    border-radius: 15px;
+    background: #9bd6e1c7;
+    border-radius: 30px;
   }
   ::-webkit-scrollbar-thumb {
-    background: #008de5;
-    border-radius: 15px;
-    // border-radius: 5px;
+    background: #119fb5;
+    border-radius: 30px;
   }
 
-  /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #006caf;
+    background: #1bb8d1;
   }
 }
 body {
   background: linear-gradient(to bottom, #9bd7e1 0%, #1bb8d1 100%);
-  // background: linear-gradient(
-  //   to bottom,
-  //   #f0f8ff 0%,
-  //   #f0f8ff 73%,
-  //   #1bb8d1 73%,
-  //   #1bb8d1 100%
-  // );
 }
 
 .container-fluid {

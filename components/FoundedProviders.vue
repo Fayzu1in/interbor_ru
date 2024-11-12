@@ -102,7 +102,7 @@ export default {
     }
     .subtitle {
       font-size: 0.875rem;
-      padding-top: 20px;
+      padding-top: 5px;
       @media only screen and (max-width: 576px) {
         padding-top: 7px;
       }

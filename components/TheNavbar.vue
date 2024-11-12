@@ -6,7 +6,7 @@ nav.Navbar(:class='{stuck}')
     .mobilePhone(@click='callCatcher') 
       div
        img(src='/phone.png')
-       span 78 113 70 71 
+       span 8 800 700-24-78
     .mobileLang 
       .globus(@click='globusLang = !globusLang')
         MaterialIcon(:icon='mdiWeb' size='25px')
@@ -54,7 +54,7 @@ nav.Navbar(:class='{stuck}')
       NuxtLink.Navbar__link(:to='localePath("/speedtest")')   {{ $t('speedtest') }}
       .Navbar__link.navbarPhone(@click='callCatcher') 
         img(src='/phone.png')
-        span 78 113 70 71 
+        span 8 800 700-24-78
       .languages 
         img.verticalLine(src='/vertical-line.png')
         a.lang(
@@ -89,7 +89,7 @@ import {
   mdiSpeedometer,
   mdiClose,
   mdiFaceAgent,
-} from '@mdi/js'
+} from "@mdi/js";
 
 export default {
   data() {
@@ -105,41 +105,41 @@ export default {
       stuck: false,
       mobileNav: false,
       globusLang: false,
-    }
+    };
   },
 
   mounted() {
     window.document.onscroll = () => {
-      const navBar = document.querySelector('.Navbar')
+      const navBar = document.querySelector(".Navbar");
       if (window.scrollY > navBar.offsetTop) {
-        this.stuck = true
+        this.stuck = true;
       } else {
-        this.stuck = false
+        this.stuck = false;
       }
-    }
+    };
   },
   methods: {
     async redirectToTelegram() {
       try {
-        await this.$api.clickCatcher('telegram')
+        await this.$api.clickCatcher("telegram");
       } catch (error) {
-        console.error('Error occured', error)
+        console.error("Error occured", error);
       } finally {
-        window.open('https://telegram.me/InternetBor', '_blank')
+        window.open("https://telegram.me/InternetBor", "_blank");
       }
     },
     async callCatcher() {
       try {
-        await this.$api.clickCatcher('phone call')
+        await this.$api.clickCatcher("phone call");
       } catch (error) {
-        console.error('Error occured', error)
+        console.error("Error occured", error);
       } finally {
-        const phoneNumber = '+998781137071'
-        window.location.href = `tel:${phoneNumber}`
+        const phoneNumber = "88007002478";
+        window.location.href = `tel:${phoneNumber}`;
       }
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .Navbar {

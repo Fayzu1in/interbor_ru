@@ -14,14 +14,7 @@ section.tariffCard
         div.router(v-if="router")
           p.router__title {{ $t('router') }}
           img.router__image(src="/router-for-card.png")
-          //- MaterialIcon.router__image(:icon='mdiRouterWireless' color='#000' size='1.8rem')
   .tariffCard__middle
-    .speed 
-      .tech__title {{ $t('dailySpeed') }}
-      .tech__text(:speed='speed') {{ this.speed || $t('notIndicated')}}
-    .nightSpeed
-      p.nightSpeed__title {{ $t('nightSpeed') }}
-      p.nightSpeed__text(:nSpeed='nSpeed') {{ this.nSpeed || $t('notIndicated') }}
   .tariffCard__bottom
     .tariffCard__bottom-price 
       .priceCount
@@ -108,7 +101,6 @@ export default {
   text-decoration: none;
   margin-bottom: 15px;
   position: relative;
-  margin-right: 50px;
 
   font-family: "Montserrat", sans-serif;
   @media only screen and (max-width: 431px) {
@@ -199,6 +191,11 @@ export default {
         padding: 10px 0;
         border-radius: 15px;
         background-color: #f0f8ff;
+        border: 2px solid #3f62a7;
+        min-height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       .typeSubtitle {
         font-size: 18px;
