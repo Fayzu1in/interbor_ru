@@ -21,7 +21,7 @@ section.request.container-fluid(@click='showModal = false' )
       .tariff
         .tariff__title
           .logo
-            img.logoImg(:src='image')
+            img.logoImg(:src='tariffInfo?.provider_picture')
           //- p {{ $t('yourTariff') }}
         .tariff__bottom 
           .tariff__left
