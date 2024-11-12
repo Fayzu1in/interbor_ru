@@ -85,7 +85,8 @@ export default {
   }
   &__bottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 30px;
     @media only screen and (max-width: 576px) {
       overflow-x: auto;
       overflow-y: hidden;

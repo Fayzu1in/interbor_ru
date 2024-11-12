@@ -26,9 +26,11 @@ export default {
   },
   computed: {
     betterOffersStyle() {
-      return this.bestOffers.length <= 3
-        ? { display: "flex", justifyContent: "center" }
-        : { display: "flex" };
+      if (window.innerWidth > 768 && this.bestOffers.length <= 3) {
+        return { display: "flex", justifyContent: "center" };
+      } else {
+        return { display: "flex" };
+      }
     },
   },
 };

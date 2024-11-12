@@ -1,8 +1,5 @@
 <template lang="pug">
 section.request.container-fluid(@click='showModal = false' )
-  //- .modalOverlay
-  //- transition(name='slide' appear)
-
   .top
     .top__left
       .formManual
@@ -23,13 +20,15 @@ section.request.container-fluid(@click='showModal = false' )
     .information
       .tariff
         .tariff__title
-          p {{ $t('yourTariff') }}
+          .logo
+            img.logoImg(:src='image')
+          //- p {{ $t('yourTariff') }}
         .tariff__bottom 
           .tariff__left
             .name {{ tariff }}
             .price {{ price + $t('priceMonth')}}
-          .tariff__right
-            img(:src='image')
+          //- .tariff__right
+          //-   img(:src='image')
       .tariffInfo
         .leftSide
           .type 
@@ -224,7 +223,7 @@ export default {
   flex-direction: column;
   @media only screen and (max-width: 431px) {
     padding-bottom: 30px;
-    padding-top: 70px;
+    padding-top: 100px;
   }
   .top {
     width: 100%;
@@ -308,17 +307,20 @@ export default {
         padding-bottom: 0;
         color: #2e363e;
         &__title {
-          padding-bottom: 22px;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: center;
-          p {
-            font-size: 1.375rem;
-            font-weight: 600;
-            max-width: 216px;
-            width: 100%;
-            text-align: center;
-            line-height: 30px;
+          .logo {
+            width: 230px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+
+            .logoImg {
+              height: 100%;
+              width: 100%;
+              object-fit: contain;
+            }
           }
         }
         &__bottom {
@@ -349,6 +351,7 @@ export default {
           }
           .name {
             color: #fff;
+            margin-top: 15px;
             background: #1bb8d1;
           }
         }
