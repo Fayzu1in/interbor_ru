@@ -23,17 +23,17 @@ export default {
       tariff: [
         {
           dwelling: this.$t("flat"),
-          priceFrom: "",
+          priceFrom: "от 600 руб/мес",
           image: "/home.png",
         },
         {
           dwelling: this.$t("home"),
-          priceFrom: "",
+          priceFrom: "от 600 руб/мес",
           image: "/flat.png",
         },
         {
           dwelling: this.$t("office"),
-          priceFrom: "",
+          priceFrom: "от 1000 руб/мес",
           image: "/office.png",
         },
       ],

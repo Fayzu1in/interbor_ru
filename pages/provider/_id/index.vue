@@ -41,6 +41,9 @@ export default {
 .tariffWrapperr {
   display: flex;
   justify-content: center;
+  @media only screen and (max-width: 531px) {
+    padding-top: 30px;
+  }
 }
 .tariff {
   display: flex;

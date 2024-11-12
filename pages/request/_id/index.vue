@@ -16,7 +16,12 @@ section.request.container-fluid(@click='showModal = false' )
         input(:placeholder=`$t('house')` required type="text" id="house" name="house" v-model='post.house' )
         input(type="hidden" name="plan_id"  id='tariff' :value='this.$route.params.id' )
         button.request__form-button(type="submit" value="submit") {{ $t('send') }}
-        p.accept Нажимая на кнопку "Оставить заявку", выдаёте Согласие на обработку персональных данных и соглашаетесь с Политикой обработки персональных данных
+        p.accept Нажимая на кнопку "Оставить заявку", выдаёте 
+          span
+            NuxtLink(to='/personaldata', style='color:blue; text-decoration:underline') Согласие на обработку персональных данных
+          span и соглашаетесь с 
+          span()
+            NuxtLink(to='/termsofuse', style='color:blue; text-decoration:underline') Политикой обработки персональных данных
     .information
       .tariff
         .tariff__title
