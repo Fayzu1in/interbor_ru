@@ -1,7 +1,8 @@
 <template lang="pug">
 #app
   NewNavbar
-  Nuxt.wrapper
+  transition(name='category-tabs', appear)
+    Nuxt.wrapper
   TheFooter
 </template>
 <script>
@@ -85,5 +86,32 @@ body {
   height: 60px;
   background: none;
   cursor: pointer;
+}
+.page-enter-active,
+.page-leave-active,
+.category-tabs-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
+}
+.category-tabs-enter-active {
+  transition: opacity 0.5s, transform 0.5s;
+  transition-delay: 0.5s;
+}
+
+.page-leave-to,
+.category-tabs-leave-to {
+  opacity: 0;
+  transform: translateY(-2rem);
+}
+
+.page-enter,
+.category-tabs-enter {
+  opacity: 0;
+  transform: translateY(2rem);
+}
+
+.page-enter-to,
+.category-tabs-enter-to {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
