@@ -190,8 +190,8 @@ export default {
         text-align: center;
         padding: 10px 0;
         border-radius: 15px;
-        background-color: #f0f8ff;
-        border: 2px solid #3f62a7;
+        background-color: #1bb8d1;
+        color: #fff;
         min-height: 70px;
         display: flex;
         justify-content: center;
@@ -306,7 +306,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #3f62a7;
+      background: #1bb8d1;
       margin-top: 10px;
       @media only screen and (max-width: 431px) {
         font-size: 16px;
