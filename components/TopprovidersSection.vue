@@ -8,7 +8,7 @@
         .subtitle {{ $t('bestProvidersUzbekistan') }}
       .TopProviders__top-right
         img(src='/router.gif')
-    .TopProviders__bottom
+    .TopProviders__bottom(:style="TopProvidersStyle")
       .providerCard(v-for="provider in topProviders" :key='provider.provider_id')
         NuxtLink.topProviders__card(:to='localePath(`/provider/${provider.provider_id}` )', :message='topProviders')
           img.topProviders__card-img(:src='provider.provider_picture')
@@ -24,6 +24,15 @@ export default {
     this.topProviders = await this.$axios.$get(
       "https://internetbor.ru/api/v1/top-providers"
     );
+  },
+  computed: {
+    TopProvidersStyle() {
+      if (window.innerWidth > 768 && this.topProviders.length <= 4) {
+        return { display: "flex", justifyContent: "center" };
+      } else {
+        return { display: "flex" };
+      }
+    },
   },
 };
 </script>
@@ -85,7 +94,6 @@ export default {
   }
   &__bottom {
     display: flex;
-    justify-content: center;
     gap: 30px;
     @media only screen and (max-width: 576px) {
       overflow-x: auto;
