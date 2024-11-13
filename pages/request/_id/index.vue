@@ -20,7 +20,7 @@ section.request.container-fluid(@click='showModal = false' )
           span(style='color:blue; text-decoration:underline; cursor: pointer') Согласие 
           span на обработку персональных данных и соглашаетесь с 
           span
-            NuxtLink(to='/termsofuse', style='color:blue; text-decoration:underline') Политикой 
+            NuxtLink(to='/personaldata', style='color:blue; text-decoration:underline') Политикой 
           span обработки персональных данных
     .information
       .tariff

@@ -1,22 +1,24 @@
 <template lang="pug">
 .container-fluid
   .addressSection
-    //- .currentLocation
-    //-   p.currentLocation__title(@click='showCities = !showCities') {{ currentCity }}
-    //-     ul.citiesList(v-if='showCities')
-    //-       li.citiesList__list(v-for="city in citiesList" :key="city", @click='selectedCity(city)') {{ city }}
-    //-   MaterialIcon(:icon='mdiMapMarkerOutline', size='27px')
     .addressSection__top
       .addressSection__top-left {{ $t('chooseProvider') }}
       .addressSection__top-right
         img(src='/signal.gif')
     .addressSection__middle
-      //- AddressForm
       NewaddressForm(:coverageCities='coverageCities', :currentCity='currentCity')
     .addressSection__bottom
-      a(href='https://t.me/internet_bor_bot').addressSection__bottom-left
-        img(src='/telegram.png')
-        span {{ $t('quickConnectionViaBot') }}
+      .socialNetworks
+        a(href='https://t.me/InternetBor', target='_blank')
+          img(src='/telegram.png', style='margin-top: -7px;')
+          p Telegram
+          //- span {{ $t('quickConnectionViaBot') }}
+        a(href='https://wa.me/789030081191', target='_blank')
+          img(src='/watsapp.png', style='height: 30px; width: 30px;')
+          p Watsapp
+        a(href='viber://chat?number=%2B789030081191')
+          img(src='/viber.png',  style='height: 42px; width: 42px; margin-top: -6px;')
+          p Viber
       .addressSection__bottom-right
         a.callBackBtn(href='tel:9989781136135') {{ $t('callBack') }}
         a(href='tel:9989781136135')
@@ -146,6 +148,31 @@ export default {
       padding-top: 20px;
       padding-bottom: 20px;
     }
+    .socialNetworks {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      a {
+        color: #fff;
+        font-size: 0.875rem;
+        width: auto;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        img {
+          height: 50px;
+          width: auto;
+        }
+      }
+    }
     &-left {
       display: flex;
       align-items: center;
@@ -153,8 +180,8 @@ export default {
       text-wrap: nowrap;
       width: fit-content;
       img {
-        height: 43px;
-        width: 43px;
+        height: 50px;
+        width: 50px;
       }
     }
     &-right {

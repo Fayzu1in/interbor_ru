@@ -43,9 +43,9 @@ export default {
           this.$emit("close");
         })
         .catch((error) => {
-          // Handle errors here if needed
           console.error("Error:", error);
-          this.loading = false; // Set loading to false on error as well
+          this.$emit("close");
+          this.loading = false;
         });
     },
     async callCatcher() {
