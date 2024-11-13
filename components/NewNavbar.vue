@@ -6,7 +6,7 @@ nav.Navbar(:class='{stuck}')
         NuxtLink.list(:to='localePath("/")', style="padding-bottom: 12px;")
           img.logo(src='/new_logo.svg')
         NuxtLink.list(:to='localePath("/providers")') {{ $t('providers') }}
-        a.list(href="https://t.me/InternetBorNews") {{ $t('news') }}
+        //- a.list(href="https://t.me/InternetBorNews") {{ $t('news') }}
         NuxtLink.list(:to='localePath("/speedtest")') Speed test
         .list.langs
           a.lang(
@@ -33,8 +33,8 @@ nav.Navbar(:class='{stuck}')
           p(@click='mobileNav = false') {{ $t('homePage') }} 
         NuxtLink.mobileNavbar__link(:to='localePath("/providers")')  
           p(@click='mobileNav = false') {{ $t('providers') }}
-        a.mobileNavbar__link(href="https://t.me/InternetBorNews")  
-          p(@click='mobileNav = false') {{ $t('news') }}
+        //- a.mobileNavbar__link(href="https://t.me/InternetBorNews")  
+        //-   p(@click='mobileNav = false') {{ $t('news') }}
         NuxtLink.mobileNavbar__link(:to='localePath("/speedtest")')  
           p(@click='mobileNav = false') {{ $t('speedtest') }}
         a(href='https://telegram.me/InternetBor').mobileNavbar__link 

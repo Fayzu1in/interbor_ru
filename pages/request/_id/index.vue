@@ -17,11 +17,11 @@ section.request.container-fluid(@click='showModal = false' )
         input(type="hidden" name="plan_id"  id='tariff' :value='this.$route.params.id' )
         button.request__form-button(type="submit" value="submit") {{ $t('send') }}
         p.accept Нажимая на кнопку "Оставить заявку", выдаёте 
+          span(style='color:blue; text-decoration:underline; cursor: pointer') Согласие 
+          span на обработку персональных данных и соглашаетесь с 
           span
-            NuxtLink(to='/personaldata', style='color:blue; text-decoration:underline') Согласие на обработку персональных данных
-          span и соглашаетесь с 
-          span()
-            NuxtLink(to='/termsofuse', style='color:blue; text-decoration:underline') Политикой обработки персональных данных
+            NuxtLink(to='/termsofuse', style='color:blue; text-decoration:underline') Политикой 
+          span обработки персональных данных
     .information
       .tariff
         .tariff__title

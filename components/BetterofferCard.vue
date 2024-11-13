@@ -186,16 +186,19 @@ export default {
         margin-top: 10px;
         margin-bottom: 10px;
         font-size: 20px;
-        // font-weight: bold;
         text-align: center;
         padding: 10px 0;
         border-radius: 15px;
         background-color: #1bb8d1;
         color: #fff;
-        min-height: 70px;
-        display: flex;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; /* Limit the text to 2 lines */
+        overflow: hidden; /* Hide the overflowed text */
+        text-overflow: ellipsis; /* Add ellipsis when the text overflows */
         justify-content: center;
         align-items: center;
+        height: 62px;
       }
       .typeSubtitle {
         font-size: 18px;

@@ -18,7 +18,7 @@
         img(src='/telegram.png')
         span {{ $t('quickConnectionViaBot') }}
       .addressSection__bottom-right
-        a(href='tel:9989781136135') {{ $t('callBack') }}
+        a.callBackBtn(href='tel:9989781136135') {{ $t('callBack') }}
         a(href='tel:9989781136135')
           img.phoneImage(src='/phone.png')
         .workTime
@@ -168,6 +168,11 @@ export default {
       a {
         width: auto;
         color: #fff;
+      }
+      .callBackBtn {
+        background-color: #3f62a7;
+        padding: 5px 10px;
+        border-radius: 30px;
       }
       .phoneImage {
         width: 43px;
