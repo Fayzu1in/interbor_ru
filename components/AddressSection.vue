@@ -152,6 +152,9 @@ export default {
       display: flex;
       gap: 30px;
       align-items: center;
+      @media only screen and (max-width: 576px) {
+        margin-bottom: 20px;
+      }
       a {
         color: #fff;
         font-size: 0.875rem;
@@ -200,6 +203,9 @@ export default {
         background-color: #3f62a7;
         padding: 5px 10px;
         border-radius: 30px;
+        @media only screen and (max-width: 576px) {
+          margin-bottom: 20px;
+        }
       }
       .phoneImage {
         width: 43px;

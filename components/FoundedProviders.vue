@@ -130,8 +130,8 @@ export default {
         @media only screen and (max-width: 576px) {
           margin-right: 5;
           margin-left: 5px;
-          max-width: 90px;
-          height: 79px;
+          max-width: 110px;
+          height: 90px;
         }
 
         .providerLogo {

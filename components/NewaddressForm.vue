@@ -9,18 +9,24 @@ div
     .addressForm__district
       label.inputWrapper(for='district')
         input.addressForm__field(type='text' :placeholder=`$t('district')` required v-model="inputDistrict" @input="showDistrict = inputDistrict.length > 0" @click='toggleShowDistrict' :disabled="isSecondDisabled" )
-        ul.suggestionList(v-if="showDistrict" )
+        ul.suggestionList(v-if="showDistrict && districts.length" )
           li.suggestionItem(v-for="district in districts"  @click="selectDistrict(district.name)") {{ district.name }}
+        ul.suggestionList(v-else-if='showDistrict')
+          li.suggestionItem Загружаем
     .addressForm__street
       label.inputWrapper(for='street')
         input.addressForm__field(type='text' :placeholder=`$t('street')` required v-model="inputStreet" @input="showStreets = inputStreet.length > 0" @click="toggleShowStreets" :disabled="isThirdDisabled" )
-        ul.suggestionList(v-if="showStreets")
+        ul.suggestionList(v-if="showStreets && streets.length")
           li.suggestionItem(v-for="str in streets"  @click="selectStreet(str.name)") {{ str.name }}
+        ul.suggestionList(v-else-if='showStreets')
+          li.suggestionItem Загружаем
     .addressForm__house 
       label.inputWrapper(for='house')
         input.addressForm__field(type='text' :placeholder=`$t('house')` required v-model="inputHouse" @click='toggleShowHouses' :disabled="isForthDisabled", style="border-right: none; border-bottom: unset")
-        ul.suggestionList(v-if="showHouses")
+        ul.suggestionList(v-if="showHouses && houses.length")
           li.suggestionItem(v-for="house in houses" @click="selectHouse(house)" ) {{ house }}
+        ul.suggestionList(v-else-if='showHouses')
+          li.suggestionItem Загружаем
     button.addressForm__search 
       | {{ $t('search') }}
       MaterialIcon(v-if="isLoading", :icon="mdiLoading", size="16px", color="#fff", class="loading-icon")
