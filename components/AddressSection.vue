@@ -9,7 +9,7 @@
       NewaddressForm(:coverageCities='coverageCities', :currentCity='currentCity')
     .addressSection__bottom
       .socialNetworks
-        a(href='https://t.me/InternetBor', target='_blank')
+        a(href='https://t.me/+789030081191', target='_blank')
           img(src='/telegram.png', style='margin-top: -7px;')
           p Telegram
           //- span {{ $t('quickConnectionViaBot') }}
