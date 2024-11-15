@@ -20,8 +20,8 @@
           img(src='/viber.png',  style='height: 42px; width: 42px; margin-top: -6px;')
           p Viber
       .addressSection__bottom-right
-        a.callBackBtn(href='tel:9989781136135') {{ $t('callBack') }}
-        a(href='tel:9989781136135')
+        a.callBackBtn(href='tel:88007002478') {{ $t('callBack') }}
+        a(href='tel:88007002478')
           img.phoneImage(src='/phone.png')
         .workTime
           .workTime__top 8 800 700-24-78
