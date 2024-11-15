@@ -5,26 +5,26 @@ div
       label.inputWrapper(for='city')
         input.addressForm__field(type='text' :placeholder=`$t('city')` required v-model="inputCity" @input="showCities = inputCity.length > 0" @click="toggleShowCities" )
         ul.suggestionList(v-if="showCities" )
-          li.suggestionItem(v-for="city in cities" @click="selectCity(city.name)") {{ city.name }}
+          li.suggestionItem(v-for="city in filteredCities", :key="city.id", @click="selectCity(city.name)") {{ city.name }}
     .addressForm__district
       label.inputWrapper(for='district')
         input.addressForm__field(type='text' :placeholder=`$t('district')` required v-model="inputDistrict" @input="showDistrict = inputDistrict.length > 0" @click='toggleShowDistrict' :disabled="isSecondDisabled" )
         ul.suggestionList(v-if="showDistrict && districts.length" )
-          li.suggestionItem(v-for="district in districts"  @click="selectDistrict(district.name)") {{ district.name }}
+          li.suggestionItem(v-for="district in filteredDistricts"  @click="selectDistrict(district.name)") {{ district.name }}
         ul.suggestionList(v-else-if='showDistrict')
           li.suggestionItem Загружаем
     .addressForm__street
       label.inputWrapper(for='street')
         input.addressForm__field(type='text' :placeholder=`$t('street')` required v-model="inputStreet" @input="showStreets = inputStreet.length > 0" @click="toggleShowStreets" :disabled="isThirdDisabled" )
         ul.suggestionList(v-if="showStreets && streets.length")
-          li.suggestionItem(v-for="str in streets"  @click="selectStreet(str.name)") {{ str.name }}
+          li.suggestionItem(v-for="str in filteredStreets"  @click="selectStreet(str.name)") {{ str.name }}
         ul.suggestionList(v-else-if='showStreets')
           li.suggestionItem Загружаем
     .addressForm__house 
       label.inputWrapper(for='house')
         input.addressForm__field(type='text' :placeholder=`$t('house')` required v-model="inputHouse" @click='toggleShowHouses' :disabled="isForthDisabled", style="border-right: none; border-bottom: unset")
         ul.suggestionList(v-if="showHouses && houses.length")
-          li.suggestionItem(v-for="house in houses" @click="selectHouse(house)" ) {{ house }}
+          li.suggestionItem(v-for="house in filteredHouses" @click="selectHouse(house)" ) {{ house }}
         ul.suggestionList(v-else-if='showHouses')
           li.suggestionItem Загружаем
     button.addressForm__search 
@@ -67,6 +67,26 @@ export default {
     },
     isForthDisabled() {
       return !this.inputStreet;
+    },
+    filteredCities() {
+      return this.cities.filter((city) =>
+        city.name.toLowerCase().includes(this.inputCity.toLowerCase())
+      );
+    },
+    filteredDistricts() {
+      return this.districts.filter((district) =>
+        district.name.toLowerCase().includes(this.inputDistrict.toLowerCase())
+      );
+    },
+    filteredStreets() {
+      return this.streets.filter((street) =>
+        street.name.toLowerCase().includes(this.inputStreet.toLowerCase())
+      );
+    },
+    filteredHouses() {
+      return this.houses.filter((house) =>
+        house.toLowerCase().includes(this.inputHouse.toLowerCase())
+      );
     },
   },
   methods: {
