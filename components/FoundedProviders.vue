@@ -187,7 +187,7 @@ export default {
 .glide__arrow--left {
   left: 5px;
   top: 50%;
-
+  width: 55px;
   &:hover {
     opacity: 1;
   }
@@ -195,6 +195,7 @@ export default {
 .glide__arrow--right {
   right: 5px;
   top: 50%;
+  width: 55px;
 
   &:hover {
     opacity: 1;
