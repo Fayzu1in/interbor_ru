@@ -16,9 +16,9 @@
         a(href='https://wa.me/789030081191', target='_blank')
           img(src='/watsapp.png', style='height: 30px; width: 30px;')
           p Watsapp
-        a(href='viber://chat?number=%2B789030081191')
-          img(src='/viber.png',  style='height: 42px; width: 42px; margin-top: -6px;')
-          p Viber
+        //- a(href='viber://chat?number=%2B789030081191')
+        //-   img(src='/viber.png',  style='height: 42px; width: 42px; margin-top: -6px;')
+        //-   p Viber
       .addressSection__bottom-right
         a.callBackBtn(href='tel:88007002478') {{ $t('callBack') }}
         a(href='tel:88007002478')
