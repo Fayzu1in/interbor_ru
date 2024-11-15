@@ -153,6 +153,7 @@ export default {
       overflow: auto;
       margin-left: 15px;
       justify-content: flex-start;
+      gap: 25px;
       width: auto;
       @media only screen and (max-width: 576px) {
         display: flex;
