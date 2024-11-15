@@ -5,7 +5,7 @@
       .congrats
         .title {{ $t('congratulations') }} 
         .subtitle {{ $t('availableProviders') }}
-        .availableProviders
+        .availableProviders(:style="providersStyle")
           div.card(v-for="available in availableProviders",)
             NuxtLink.availableProvider(:to='localePath(`/provider/${available.provider_id}/`)') 
               img.providerLogo(:src="`${available.provider_picture}`")
@@ -46,6 +46,15 @@ export default {
         breakpoints: {},
       },
     };
+  },
+  computed: {
+    providersStyle() {
+      if (window.innerWidth > 768 && this.availableProviders.length <= 2) {
+        return { display: "flex", justifyContent: "center" };
+      } else {
+        return { display: "flex" };
+      }
+    },
   },
   methods: {
     hide() {
@@ -111,9 +120,11 @@ export default {
       width: 100%;
       display: flex;
       padding-top: 15px;
-      justify-content: center;
       overflow: auto;
       gap: 10px;
+      @media only screen and (max-width: 576px) {
+        padding-bottom: 10px;
+      }
       .card {
         width: auto;
       }
