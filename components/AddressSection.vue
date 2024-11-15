@@ -23,7 +23,7 @@
         a.callBackBtn(href='tel:88007002478') {{ $t('callBack') }}
         a(href='tel:88007002478')
           img.phoneImage(src='/phone.png')
-        .workTime
+        a.workTime(href='tel:88007002478')
           .workTime__top 8 800 700-24-78
           .workTime__bottom {{ $t('everyDayFrom') }}
 </template>
