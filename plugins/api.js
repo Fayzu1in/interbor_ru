@@ -16,6 +16,7 @@ export default ({ $axios, i18n }, inject) => {
     getCoverageCities: () => $api.$get("/coverage-cities/"),
     // get questions and answers
     getQuestionsAndAnswers: () => $api.$get("/q&a/"),
+    // offers
     getOffers: () => $api.$get("/offers"),
     getTopProviers: () => $api.$get("/top-providers"),
     getTariff: (id) => $api.$get(`/plans/${id}`),
