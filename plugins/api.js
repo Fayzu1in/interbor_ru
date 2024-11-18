@@ -13,19 +13,21 @@ export default ({ $axios, i18n }, inject) => {
     instance: $api,
     // cities
     getPlans: (params) => $api.$get("/plans/", { params }),
+    getCoverageCities: () => $api.$get("/coverage-cities/"),
+    getQuestionsAndAnswers: () => $api.$get("/q&a/"),
+    getOffers: () => $api.$get("/offers"),
+    getTopProviers: () => $api.$get("/top-providers"),
+    getTariff: (id) => $api.$get(`/plans/${id}`),
+    // callbacks
+    postCallBacks: (params) => $api.$post("/callbacks", { params }),
     postCallBack: (name, phone, preferrableTime) =>
       $api.$post(`/quick/`, {
         name,
         phone,
         preferrable_time: preferrableTime,
       }),
+    // catchers
     clickCatcher: (title) => $api.$post(`/click`, { title }),
-    getCoverageCities: () => $api.$get("/coverage-cities/"),
-    getQuestionsAndAnswers: () => $api.$get("/q&a/"),
-    getOffers: () => $api.$get("/offers"),
-    getTopProviers: () => $api.$get("/top-providers"),
-    getTariff: (id) => $api.$get(`/plans/${id}`),
-    postCallBacks: (params) => $api.$post("/callbacks", { params }),
   };
 
   inject("api", apiMethods);
