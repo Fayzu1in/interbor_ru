@@ -14,10 +14,7 @@ export default {
     };
   },
   async fetch() {
-    this.topProviders = await this.$axios.$get(
-      "https://internetbor.ru/api/v1/top-providers"
-    );
-    // console.log(this.topProviders)
+    this.topProviders = await this.$api.getTopProviers();
   },
 };
 </script>

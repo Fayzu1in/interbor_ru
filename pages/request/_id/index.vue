@@ -6,7 +6,6 @@ section.request.container-fluid(@click='showModal = false' )
         .formManual__title {{ $t('congratsTariff') }}
         .formManual__subtitle
           p {{ $t('fillOut') }}
-          //- pattern=".{19,}"pattern=".{19,}"
       form.request__form(action="" method="post", @submit.prevent="formSubmit")
         input(:placeholder=`$t('name')` required type="text" id="name" name="name" v-model='post.name' )
         input(:placeholder=`$t('phoneNumber')`, v-maska data-maska='+7 (###) ### ## ##', required  id="phone" name="phone" v-model='post.phone' )
@@ -76,7 +75,6 @@ section.request.container-fluid(@click='showModal = false' )
 </template>
 
 <script>
-import axios from "axios";
 import {
   mdiClose,
   mdiClockOutline,
@@ -138,9 +136,7 @@ export default {
     };
   },
   async fetch() {
-    this.tariffInfo = await this.$axios.$get(
-      `https://internetbor.ru/api/v1/plans/${this.tariffID}`
-    );
+    this.tariffInfo = await this.$api.getTariff(this.tariffID);
     this.providerName = this.tariffInfo.provider_name;
     this.tariff = this.tariffInfo.title;
     this.speed = this.tariffInfo.speed;
@@ -163,21 +159,19 @@ export default {
 
   methods: {
     formSubmit() {
-      axios
-        .post("https://internetbor.ru/api/v1/callbacks", this.post)
-        .then((response) => {
-          if (this.post.phone.length < 4) {
-            alert("Введите номер телефона");
-          }
-          this.post.name = "";
-          this.post.phone = "+7";
-          this.post.city = "";
-          this.post.district = "";
-          this.post.street = "";
-          this.post.house = "";
-          this.showModal = true;
-          window.location.href = "/thankyou";
-        });
+      this.$api.postCallBacks(this.post).then((response) => {
+        if (this.post.phone.length < 4) {
+          alert("Введите номер телефона");
+        }
+        this.post.name = "";
+        this.post.phone = "+7";
+        this.post.city = "";
+        this.post.district = "";
+        this.post.street = "";
+        this.post.house = "";
+        this.showModal = true;
+        window.location.href = "/thankyou";
+      });
     },
     mapInit(e) {
       window.ymaps.geolocation.get().then((res) => {
@@ -217,7 +211,6 @@ export default {
 }
 .ymap-container {
   border-radius: 15px;
-  // overflow: hidden;
 }
 
 .request {

@@ -19,9 +19,7 @@ export default {
     };
   },
   async fetch() {
-    this.offers = await this.$axios.$get(
-      "https://internetbor.ru/api/v1/offers"
-    );
+    this.offers = await this.$api.getOffers();
     this.bestOffers = this.offers[0].plans;
   },
   computed: {

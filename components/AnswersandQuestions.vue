@@ -1,11 +1,11 @@
 <template lang="pug">
-section.container-fluid
+section
   .faqSection
     .faq 
       .faq__list(v-for='item in faq' :key='item.id')
         .question(@click="toggleDropdown(item.id)")
           p {{ item.question }}
-          MaterialIcon(:icon='show === item.id ? mdiChevronUp : mdiChevronDown' color='#001b48')
+          img.arrow(:src='show === item.id ? "/arrow-up.png" : "/arrow-down.png"')
         SmoothReflow(tag='section',)
           .answer(v-show='show === item.id', key="dropdown")
             p {{item.answer}}
@@ -22,7 +22,7 @@ export default {
     };
   },
   async fetch() {
-    this.faq = await this.$axios.$get("https://internetbor.ru/api/v1/q&a/");
+    this.faq = await this.$api.getQuestionsAndAnswers();
   },
   methods: {
     toggleDropdown(itemId) {
@@ -35,22 +35,24 @@ export default {
 .faqSection {
   display: flex;
   justify-content: center;
-  padding-top: 30px;
+  padding: 23px 0;
+  font-family: "Raleway", sans-serif;
+  max-width: 1080px;
+  width: 100%;
   .faq {
-    max-width: 800px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #fff;
-    border-radius: 15px;
+    border-radius: 30px;
     color: #001b48;
-    padding: 15px;
+    padding: 11px 0;
     &__title {
       font-size: 32px;
     }
     &__list:not(:last-child) {
-      border-bottom: 1px solid #001b48;
+      border-bottom: 1px solid #3f62a7;
     }
     &__list {
       width: 100%;
@@ -61,16 +63,30 @@ export default {
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        font-weight: 500;
+        font-size: 1.25rem;
+        text-align: center;
+        padding: 14px 0;
+        .arrow {
+          height: 25px;
+          width: 31px;
+          margin-right: 46px;
+        }
         p {
           margin: 0;
-          padding: 10px 0;
+          margin-left: 46px;
         }
       }
       .answer {
         p {
-          font-size: 20px;
+          font-family: "Montserrat", sans-serif;
+          font-size: 15px;
           margin: 0;
-          padding-bottom: 10px;
+          padding: 31px 138px 37px 138px;
+          text-align: center;
+          @media only screen and (max-width: 900px) {
+            padding: 15px 10px;
+          }
         }
       }
     }

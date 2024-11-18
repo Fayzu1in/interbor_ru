@@ -27,9 +27,7 @@ export default {
   },
 
   async fetch() {
-    this.data = await this.$axios.$get(
-      `https://internetbor.ru/api/v1/plans/?provider=${this.providerID}`
-    );
+    this.data = await this.$api.getPlans({ provider: this.providerID });
     this.providerName = this.data[0].provider_name;
   },
 };

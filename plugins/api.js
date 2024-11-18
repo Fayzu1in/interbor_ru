@@ -1,5 +1,3 @@
-// import axios from 'axios'
-
 export default ({ $axios, i18n }, inject) => {
   const $api = $axios.create({
     baseURL: "https://internetbor.ru/api/v1/",
@@ -12,14 +10,9 @@ export default ({ $axios, i18n }, inject) => {
   });
 
   const apiMethods = {
-    // api client instance for custom requests
     instance: $api,
-
-    // error handler
-    // errorHandler(error) {
-    //   console.log('Request canceled', error.message)
-    // },
-    getPlans: () => $api.$get(`/plans/`),
+    // cities
+    getPlans: (params) => $api.$get("/plans/", { params }),
     postCallBack: (name, phone, preferrableTime) =>
       $api.$post(`/quick/`, {
         name,
@@ -27,8 +20,12 @@ export default ({ $axios, i18n }, inject) => {
         preferrable_time: preferrableTime,
       }),
     clickCatcher: (title) => $api.$post(`/click`, { title }),
-    getCoverageCities: () =>
-      $api.get("https://internetbor.ru/api/v1/coverage-cities/"),
+    getCoverageCities: () => $api.$get("/coverage-cities/"),
+    getQuestionsAndAnswers: () => $api.$get("/q&a/"),
+    getOffers: () => $api.$get("/offers"),
+    getTopProviers: () => $api.$get("/top-providers"),
+    getTariff: (id) => $api.$get(`/plans/${id}`),
+    postCallBacks: (params) => $api.$post("/callbacks", { params }),
   };
 
   inject("api", apiMethods);

@@ -203,6 +203,7 @@ export default {
         background-color: #3f62a7;
         padding: 5px 10px;
         border-radius: 30px;
+        text-wrap: nowrap;
         @media only screen and (max-width: 576px) {
           margin-bottom: 20px;
         }
