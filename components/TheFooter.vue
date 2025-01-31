@@ -7,7 +7,7 @@
         p.logoText InternetBor
         p.copyright 2023
       .footer__center 
-        a(href='https://t.me/+789030081191', target='_blank')
+        a(href='https://t.me/+79207119565', target='_blank')
           img.feetback__image(src='/telegram.png')    
       a.footer__right(href='tel:88007002478')
           p {{ $t('feedback') }}
