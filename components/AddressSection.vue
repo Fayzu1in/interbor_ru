@@ -9,11 +9,11 @@
       NewaddressForm(:coverageCities='coverageCities', :currentCity='currentCity')
     .addressSection__bottom
       .socialNetworks
-        a(href='https://t.me/+789030081191', target='_blank')
+        a(href='https://t.me/+79207119565', target='_blank')
           img(src='/telegram.png', style='margin-top: -7px;')
           p Telegram
           //- span {{ $t('quickConnectionViaBot') }}
-        a(href='https://wa.me/789030081191', target='_blank')
+        a(href='https://wa.me/+79207119565', target='_blank')
           img(src='/watsapp.png', style='height: 30px; width: 30px;')
           p Watsapp
         //- a(href='viber://chat?number=%2B789030081191')
