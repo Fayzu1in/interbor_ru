@@ -159,16 +159,21 @@ export default {
 
   methods: {
     formSubmit() {
-      this.$api.postCallBacks(this.post).then((response) => {
-        if (this.post.phone.length < 4) {
-          alert("Введите номер телефона");
-        }
-        this.post.name = "";
-        this.post.phone = "+7";
-        this.post.city = "";
-        this.post.district = "";
-        this.post.street = "";
-        this.post.house = "";
+      const utmParams = this.$utm || {};
+      const formData = { ...this.post, ...utmParams };
+      if (this.post.phone.length < 4) {
+        alert("Введите номер телефона");
+        return;
+      }
+      this.$api.postCallBacks(formData).then(() => {
+        this.post = {
+          name: "",
+          phone: "+7",
+          city: "",
+          district: "",
+          street: "",
+          house: "",
+        };
         this.showModal = true;
         window.location.href = "/thankyou";
       });
