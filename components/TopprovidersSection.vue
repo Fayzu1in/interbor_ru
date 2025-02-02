@@ -74,7 +74,7 @@ export default {
       }
       .subtitle {
         font-size: 20px;
-        font-weight: 200;
+        font-weight: 400;
         font-family: "Montserrat", sans-serif;
       }
     }
@@ -140,7 +140,7 @@ export default {
             height: 100%;
             width: 100%;
             object-fit: contain;
-            padding: 30px;
+            padding: 10px;
 
             border-radius: 15px;
             // box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,

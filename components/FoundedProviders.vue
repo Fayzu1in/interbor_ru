@@ -51,6 +51,9 @@ export default {
     providersStyle() {
       if (window.innerWidth > 768 && this.availableProviders.length <= 2) {
         return { display: "flex", justifyContent: "center" };
+      }
+      if (this.availableProviders.length <= 2) {
+        return { display: "flex", justifyContent: "center" };
       } else {
         return { display: "flex" };
       }

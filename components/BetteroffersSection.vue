@@ -58,7 +58,7 @@ export default {};
       .subtitle {
         font-family: "Montserrat", sans-serif;
         font-size: 20px;
-        font-weight: 200;
+        font-weight: 400;
       }
     }
     &-right {
