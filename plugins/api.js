@@ -21,7 +21,7 @@ export default ({ $axios, i18n }, inject) => {
     getTopProviers: () => $api.$get("/top-providers"),
     getTariff: (id) => $api.$get(`/plans/${id}`),
     // callbacks
-    postCallBacks: (params) => $api.$post("/callbacks", { params }),
+    postCallBacks: (params) => $api.$post("/callbacks", params),
     postCallBack: (name, phone, preferrableTime) =>
       $api.$post(`/quick/`, {
         name,
