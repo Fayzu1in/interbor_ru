@@ -24,6 +24,18 @@ nav.Navbar(:class='{stuck}')
       .Navbar__mobile
         NuxtLink.list(:to='localePath("/")', style="padding-bottom: 12px;")
           img.MobileLogo(src='/new_logo.svg')
+        .languages
+          a.lang(
+            v-if='this.$i18n.locale !== "ru"'
+            :href='switchLocalePath("ru")',
+            :class='{ active: $i18n.locale === "ru" }'
+          ) РУ
+
+          a.lang(
+            v-if='this.$i18n.locale !== "en"'
+            :href='switchLocalePath("en")',
+            :class='{ active: $i18n.locale === "en" }'
+          ) EN
         .burgerMenu(@click='mobileNav = toggleMobileNav')
           MaterialIcon(:icon='mdiMenu')
       .mobileNavbar(v-if="mobileNav" key='dynamic' class='animated')  
@@ -149,6 +161,20 @@ export default {
     .MobileLogo {
       width: 149px;
       height: 25px;
+    }
+    .languages {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right: 1rem;
+      gap: 0.75rem;
+      font-size: 1.325rem;
+      padding-bottom: 10px;
+      a {
+        font-weight: 500;
+        color: #fff;
+        width: fit-content;
+      }
     }
   }
   &__bottom {

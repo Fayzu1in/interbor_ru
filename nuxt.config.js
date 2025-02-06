@@ -102,12 +102,12 @@ export default {
     "@nuxtjs/i18n",
     "@nuxtjs/gtm",
   ],
-  gtm: {
-    // enabled: true,
-    id: "GTM-TQ2W9RP",
-    pageTracking: true, // Enable page tracking
-    scriptDefer: true, // Defer loading of GTM script
-  },
+  // gtm: {
+  //   // enabled: true,
+  //   id: "GTM-TQ2W9RP",
+  //   pageTracking: true, // Enable page tracking
+  //   scriptDefer: true, // Defer loading of GTM script
+  // },
   i18n: {
     locales: [
       {
