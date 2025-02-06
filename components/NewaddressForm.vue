@@ -157,6 +157,16 @@ export default {
 
     formSubmit() {
       this.isLoading = true;
+      sessionStorage.setItem(
+        "addressFormData",
+        JSON.stringify({
+          city: this.inputCity,
+          district: this.inputDistrict,
+          street: this.inputStreet,
+          house: this.inputHouse,
+        })
+      );
+      sessionStorage.setItem("cameFromForm", "true");
       axios
         .get(
           `https://internetbor.ru/api/providers/?city=${this.inputCity}&district=${this.inputDistrict}&street=${this.inputStreet}&house=${this.inputHouse}`

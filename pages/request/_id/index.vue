@@ -133,6 +133,10 @@ export default {
         house: "",
         plan_id: this.$route.params.id,
       },
+      city: null,
+      district: null,
+      streets: null,
+      house: null,
     };
   },
   async fetch() {
@@ -157,6 +161,27 @@ export default {
     this.image = this.tariffInfo.provider_picture;
   },
 
+  mounted() {
+    const cameFromForm = sessionStorage.getItem("cameFromForm");
+    if (cameFromForm) {
+      const savedData = JSON.parse(sessionStorage.getItem("addressFormData"));
+      if (savedData) {
+        console.log("Restored Address Data:", savedData);
+        this.city = savedData.city;
+        this.district = savedData.district;
+        this.street = savedData.street;
+        this.house = savedData.house;
+        this.post.city = savedData.city;
+        this.post.district = savedData.district;
+        this.post.street = savedData.street;
+        this.post.house = savedData.house;
+      }
+      sessionStorage.removeItem("cameFromForm"); // Remove flag after retrieving
+    } else {
+      sessionStorage.removeItem("addressFormData"); // Clear data if user didn't come from form
+    }
+  },
+
   methods: {
     formSubmit() {
       const utmParams = this.$utm || {};
@@ -175,7 +200,8 @@ export default {
           house: "",
         };
         this.showModal = true;
-        window.location.href = "/thankyou";
+        const path = this.localePath("/thankyou");
+        window.location.href = path;
       });
     },
     mapInit(e) {
@@ -186,15 +212,20 @@ export default {
     },
 
     onActionEnd(event) {
-      const coords = event.get("target").getCenter();
-      window.ymaps.geocode(coords).then((result) => {
-        const firstGeoObject = result.geoObjects.get(0);
-        this.locationText = firstGeoObject.getAddressLine();
-        const [city, district, street] = this.locationText.split(", ");
-        this.post.city = city;
-        this.post.district = district;
-        this.post.street = street;
-      });
+      if (!this.city || !this.district || !this.street) {
+        const coords = event.get("target").getCenter();
+        window.ymaps.geocode(coords).then((result) => {
+          const firstGeoObject = result.geoObjects.get(0);
+          this.locationText = firstGeoObject.getAddressLine();
+          const [city, district, street] = this.locationText.split(", ");
+          this.post.city = city;
+          this.post.district = district;
+          this.post.street = street;
+        });
+      } else {
+        // If data is already present, don't update the location
+        console.log("Address data already populated from session storage");
+      }
     },
   },
 };

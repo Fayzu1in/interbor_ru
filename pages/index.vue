@@ -1,6 +1,6 @@
 <template lang="pug">
 main
-  AddressSection
+  AddressSection(@showCallBackModal='showCallBackModal')
   ChooseCard(@showCallBackModal='showCallBackModal')
   TopprovidersSection
   BetteroffersSection

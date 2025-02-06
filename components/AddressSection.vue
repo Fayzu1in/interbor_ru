@@ -20,8 +20,8 @@
         //-   img(src='/viber.png',  style='height: 42px; width: 42px; margin-top: -6px;')
         //-   p Viber
       .addressSection__bottom-right
-        a.callBackBtn(href='tel:88007002478') {{ $t('callBack') }}
-        a(href='tel:88007002478')
+        a.callBackBtn(@click="handleCall") {{ $t('callBack') }}
+        a(@click="handleCall")
           img.phoneImage(src='/phone.png')
         a.workTime(href='tel:88007002478')
           .workTime__top 8 800 700-24-78
@@ -50,6 +50,14 @@ export default {
     },
   },
   methods: {
+    handleCall() {
+      if (window.innerWidth <= 768) {
+        // Mobile: Make a call
+        window.location.href = "tel:88007002478";
+      } else {
+        this.$emit("showCallBackModal");
+      }
+    },
     selectedCity(city) {
       this.currentCity = city;
     },
@@ -198,6 +206,7 @@ export default {
       a {
         width: auto;
         color: #fff;
+        cursor: pointer;
       }
       .callBackBtn {
         background-color: #3f62a7;
@@ -219,6 +228,7 @@ export default {
       }
       .workTime {
         width: auto;
+        cursor: default;
         &__top {
           font-size: 18px;
           font-weight: bold;

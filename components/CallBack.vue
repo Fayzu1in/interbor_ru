@@ -41,6 +41,8 @@ export default {
           this.loading = false;
           console.log(res);
           this.$emit("close");
+          const path = this.localePath("/thankyou");
+          window.location.href = path;
         })
         .catch((error) => {
           console.error("Error:", error);
