@@ -9,10 +9,10 @@
           div.card(v-for="available in availableProviders",)
             NuxtLink.availableProvider(:to='localePath(`/provider/${available.provider_id}/`)') 
               img.providerLogo(:src="`${available.provider_picture}`")
-        .subtitle(v-if='bestOfAvailable && bestOfAvailable.length') {{ $t('favorableTariff') }}
+        .subtitle.bestOfAvailableText(v-if='bestOfAvailable && bestOfAvailable.length', @click.stop.prevent='$emit("showCallBackModal")') {{ $t('favorableTariff') }}
         VueGlide.slider(:options='options' v-if="bestOfAvailable?.length")
           VueGlideSlide(v-for="best in bestOfAvailable" :key="best.plan_id", )
-            BetterofferCard(:router='best.router' :hot='best.is_hot' :image='best.provider_picture' :name='best.plan_name' :price='best.plan_price' :speed='best.plan_speed' :nSpeed='best.night' :tech='best.tech' :message='best.plan_id')
+            BetterofferCard(:router='best.router' :hot='best.is_hot' :discountPrice='best.discount_price' :image='best.provider_picture' :name='best.plan_name' :price='best.plan_price' :speed='best.plan_speed' :nSpeed='best.night' :tech='best.tech' :message='best.plan_id')
           template(slot='control')
             button.glide__arrow.glide__arrow--left(data-glide-dir='<') 
               MaterialIcon(:icon='mdiChevronLeft' )
@@ -115,8 +115,26 @@ export default {
     .subtitle {
       font-size: 0.875rem;
       padding-top: 5px;
+
       @media only screen and (max-width: 576px) {
         padding-top: 7px;
+      }
+    }
+    .bestOfAvailableText {
+      margin: 0 auto;
+      color: #fff;
+      padding: 10px 10px;
+      border-radius: 15px;
+      background-color: #1bb8d1;
+      width: fit-content;
+      margin-top: 30px;
+      margin-bottom: -20px;
+      cursor: pointer;
+      @media only screen and (max-width: 576px) {
+        margin-bottom: unset;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 12px;
       }
     }
     .availableProviders {

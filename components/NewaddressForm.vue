@@ -30,7 +30,7 @@ div
     button.addressForm__search 
       | {{ $t('search') }}
       MaterialIcon(v-if="isLoading", :icon="mdiLoading", size="16px", color="#fff", class="loading-icon")
-  FoundedProviders(:availableProviders='availableProviders', :bestOfAvailable='bestOfAvailable', v-if='showFoundedProviders', @hide='showFoundedProviders = false')
+  FoundedProviders(:availableProviders='availableProviders', :bestOfAvailable='bestOfAvailable', v-if='showFoundedProviders', @hide='showFoundedProviders = false', @showCallBackModal='$emit("showCallBackModal")')
 
 </template>
 <script>

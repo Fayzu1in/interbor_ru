@@ -2,7 +2,7 @@
 section.betterOffers(:style="betterOffersStyle")
   .offerCards(v-for='offer in bestOffers' :key="bestOffers.plan_id")
     NuxtLink.betterOffers__card-link(:to='localePath(`/request/${offer.plan_id}` )')
-      BetterofferCard.offerCard(:router='offer.router' :hot='offer.is_hot' :image='offer.provider_picture', :name='offer.title', :speed='offer.speed', :nSpeed='offer.night' :tech='offer.tech' :price='offer.price' :message='offer.plan_id')
+      BetterofferCard.offerCard(:router='offer.router' :hot='offer.is_hot' :image='offer.provider_picture', :name='offer.title', :speed='offer.speed', :nSpeed='offer.night' :tech='offer.tech' :price='offer.price' :discountPrice='offer.discount_price' :message='offer.plan_id')
 </template>
 <script>
 import { mdiChevronRight, mdiChevronLeft } from "@mdi/js";

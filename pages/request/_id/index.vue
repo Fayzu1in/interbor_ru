@@ -30,7 +30,11 @@ section.request.container-fluid(@click='showModal = false' )
         .tariff__bottom 
           .tariff__left
             .name {{ tariff }}
-            .price {{ price + $t('priceMonth')}}
+            .price
+              span(:class="{ 'crossed-out': discountPrice }") {{ price }} 
+              span(v-if='discountPrice') {{ discountPrice }}
+              span {{ $t('priceMonth')}}
+             
           //- .tariff__right
           //-   img(:src='image')
       .tariffInfo
@@ -98,6 +102,7 @@ export default {
       nightSpeed: "",
       tech: "",
       price: "",
+      discountPrice: undefined,
       limit: "",
       locationText: "",
       showModal: false,
@@ -146,6 +151,7 @@ export default {
     this.speed = this.tariffInfo.speed;
     this.nightSpeed = this.tariffInfo.night;
     this.price = this.tariffInfo.price;
+    this.discountPrice = this.tariffInfo.discount_price;
     this.limit = this.tariffInfo.limit;
     this.tech = this.tariffInfo.tech;
     this.daily_speed_time = this.tariffInfo.daily_speed_time;
@@ -382,6 +388,13 @@ export default {
           }
           .price {
             padding: 10px 60px;
+            .crossed-out {
+              text-decoration: line-through;
+              color: gray;
+              padding-right: 7px;
+              margin-left: -7px;
+              font-size: 16px;
+            }
           }
           .name {
             color: #fff;

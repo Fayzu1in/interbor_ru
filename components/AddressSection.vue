@@ -6,9 +6,10 @@
       .addressSection__top-right
         img(src='/signal.gif')
     .addressSection__middle
-      NewaddressForm(:coverageCities='coverageCities', :currentCity='currentCity')
+      NewaddressForm(:coverageCities='coverageCities', :currentCity='currentCity', @showCallBackModal='$emit("showCallBackModal")')
     .addressSection__bottom
       .socialNetworks
+        a.socialNetworks__applyForInternet(href='https://t.me/+79207119565', target='_blank') {{ $t('applyForInternet') }}
         a(href='https://t.me/+79207119565', target='_blank')
           img(src='/telegram.png', style='margin-top: -7px;')
           p Telegram
@@ -160,6 +161,7 @@ export default {
       display: flex;
       gap: 30px;
       align-items: center;
+      position: relative;
       @media only screen and (max-width: 576px) {
         margin-bottom: 20px;
       }
@@ -181,6 +183,18 @@ export default {
         img {
           height: 50px;
           width: auto;
+        }
+      }
+      &__applyForInternet {
+        position: absolute;
+        top: -80px;
+        height: fit-content !important;
+        background-color: #3f62a7;
+        padding: 5px 10px;
+        border-radius: 30px;
+        text-wrap: nowrap;
+        @media only screen and (max-width: 576px) {
+          display: none !important;
         }
       }
     }

@@ -18,7 +18,9 @@ section.tariffCard
   .tariffCard__bottom
     .tariffCard__bottom-price 
       .priceCount
-        p.priceBold(:price='price') {{this.price || $t('notIndicated')}}
+        .priceFlex
+          p.priceBold(:class="{ 'crossed-out': discountPrice, }", :price='price') {{this.price || $t('notIndicated')}}
+          p.discountPrice(:discountPrice='discountPrice' ) {{ this.discountPrice }}
         p.priceCountSubtitle {{ $t('priceMonth') }}
       img(src='/pricetag.png')
     NuxtLink.connectButton(:to='localePath(`/request/${this.message}` )', :message='message') {{ $t('connect') }} 
@@ -62,6 +64,10 @@ export default {
       default: null,
     },
     price: {
+      type: String,
+      default: null,
+    },
+    discountPrice: {
       type: String,
       default: null,
     },
@@ -284,8 +290,29 @@ export default {
           display: none;
         }
       }
+      .priceCount {
+        .priceFlex {
+          display: flex;
+          justify-content: center;
+          p {
+            width: fit-content;
+          }
+          .crossed-out {
+            text-decoration: line-through;
+            color: gray;
+            font-size: 14px;
+            margin-left: -20px;
+          }
+        }
+      }
       .priceBold {
         font-weight: 500;
+      }
+
+      .discountPrice {
+        font-weight: bold;
+        color: #000000;
+        margin-left: 5px; // You can choose any bold color for better visibility
       }
       /* stylelint-disable-next-line no-descending-specificity */
       p {
